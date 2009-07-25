@@ -1,0 +1,25 @@
+#summary Moderation Queues foster project cooperation
+#labels UserStory,TheFlow,Concept
+
+= User stories =
+=== Screenshots for Ubuntu installable applications ===
+Needed to transmit music from my notebook to an audio system connected to desktop station. Know that MPD (Music Player Daemon) can do this. Ubuntu menu "Applications->Add/Remove..." didn't provide this choice, so I've discovered "System->Administration->Synaptic Package Manager" which shows libraries and application and in addition can display screenshots for applications, but there is a
+
+*Problem:* _There are almost no screenshots in Synaptic descriptions_
+
+*Development:*
+ #. First reason is that developers are too busy to upload screens
+ #. The second reason is that others don't have access
+ #. Even if there is access there is no easy way to contribute screen for a given package
+ #. Even if others are given convenient access to upload images, they should be moderated to allow only screens uploads
+
+*Use case:*
+ #. I see there is no screen for my favorite package
+ #. I select "contribute screen" from context menu
+ #. New dialog (or web page) is opened with a form to upload an image
+ #. Form shows stats about current queue state (screens uploaded, waiting for moderation)
+ #. Form asks for required and optional fields for this specific Moderation Queue which in case of package screenshot include package name, package version, optional contact info/login
+ #. Image placed in moderation queue and an optional email is sent with a link to it
+ #. Developer opens web-interface that queries Moderation Queue and provides "approve", "decline" actions along with item content and information
+ #. Upon "approve" or "decline" command from web-interface Moderation Queue executes associated actions
+ #. Approved screen is uploaded to SVN/Mercurial/Whatever repository under Developer's credentials, but with User's contribution in comments
