@@ -20,6 +20,8 @@ Quoting issue #7, it is very annoying to have numerous logins for various [http:
  * http://python.org
  * http://docs.python.org
 
+In addition many python.org sites don't have valid *SSL/TLS certificate* for secure authentication that protects users against man-in-the-middle attacks.
+
 
 == Details ==
 _run out of time to fill this in_
