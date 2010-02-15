@@ -68,4 +68,4 @@ Needed to transmit music from my notebook to an audio system connected to deskto
  #. Approved screen is uploaded to SVN/Mercurial/Whatever repository under Developer's credentials, but with User's contribution in comments
 
 == See also ==
-http://code.google.com/p/support/issues/detail?id=3603
+code.google.com support [http://code.google.com/p/support/issues/detail?id=3603 issue #3603]: wiki patch queues
