@@ -1,0 +1,30 @@
+#summary Draft for centralized login service using login.python.org as an example
+#labels UserStory,TheFlow,Concept
+
+== Introduction ==
+
+Quoting issue #7, it is very annoying to have numerous logins for various [http://python.org python.org] sites:
+
+*sites that require user login*
+ * wiki
+   * main: http://wiki.python.org/moin/
+   * jython: http://wiki.python.org/jython/
+ * pypi: http://pypi.python.org
+ * bug trackers
+   * main: http://bugs.python.org
+   * meta: http://psf.upfronthosting.co.za/roundup/meta/
+   * setuptools: http://bugs.python.org/setuptools/
+   * pypi: http://sourceforge.net/tracker/?group_id=66150&atid=513503
+
+*web pages* (that would be nice to see [ModerationQueue#Corrections_for_Python_site_documentation editable from web])
+ * http://python.org
+ * http://docs.python.org
+
+
+== Details ==
+_run out of time to fill this in_
+
+To reduce amount  your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
