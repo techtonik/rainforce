@@ -9,7 +9,7 @@ I would like to fix a mistake in one of Python documentation pages at http://doc
 
 *Development:*
  #. To fix a page mistake I need to
-   #. Find [[http://www.google.com/search?q=python+documentation+sources Python documentation sources]]
+   #. Find [http://www.google.com/search?q=python+documentation+sources Python documentation sources]
    #. Find a repository and checkout the source
    #. Find a source file for corresponding page
    #. Patch source file
