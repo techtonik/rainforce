@@ -1,7 +1,50 @@
 #summary Moderation Queues foster project cooperation
 #labels UserStory,TheFlow,Concept
+<wiki:toc/>
+== User stories ==
+=== Corrections for Python site documentation ===
+I would like to fix a mistake in one of Python documentation pages at http://docs.python.org but there is a
 
-= User stories =
+*Problem:* _Python documentation is a bunch of static pages that doesn't allow edits_
+
+*Development:*
+ #. To fix a page mistake I need to
+   #. Find [[http://www.google.com/search?q=python+documentation+sources Python documentation sources]]
+   #. Find a repository and checkout the source
+   #. Find a source file for corresponding page
+   #. Patch source file
+   #. Regenerate documentation
+   #. Review generated page in browser
+   #. Create a patch
+   #. Find bug tracker for documentation enhancements requests
+   #. Login to tracker
+   #. Create ticket
+   #. Attach a patch
+ #. Source for documentation page is already available from page menu
+ #. Source is in restructured text format that is easy to edit
+ #. Although an edit form can be added to source view, the edits should be saved to repository
+ #. Repository access requires commit privileges
+ #. Commit privileges are granted to limited set of authenticated users
+ #. Edits can be represented as patches
+ #. The most popular format for patches is unified diff
+ #. People without commit privileges would like to receive feedback and credits
+ #. Users without commit right should be authenticated to get them in the future (see also CentralizedLogin)
+
+*Use case:*
+ #. I notice a typo on some/doc.page
+ #. I login using the link from page menu titled "Login to edit this page" near "Show source" link
+ #. After login I see "Edit this page" link that opens reST editor
+ #. I edit a page, using preview button to watch the results
+ #. When finished I add one line description of my comment and click submit
+ #. System displays message "Thanks for you contribution. Your patch is placed into Moderation Queue. If you setup a email address in your profile, you will be notified when it's integrated."
+ #. System generates a patch and places it into review queue with status "New"
+ #. User with commit privileges looks at review queue, loads my patch, reviews it
+ #. If patch requires discussion, a link to create an issue and add patch to tracker is provided automatically, the status is changed to "chatting", author is automatically subscribed to an issue
+ #. If patch is ok, moderator pushes "Commit" button
+   #. Current version of page is patched in local checkout
+   #. Diff is compared to original patch
+   #. Document is committed to repository with appropriate [http://subversion.apache.org/docs/community-guide/conventions.html#crediting credits], patch description and "reviewed by" signature.
+
 === Screenshots for Ubuntu installable applications ===
 Needed to transmit music from my notebook to an audio system connected to desktop station. Know that MPD (Music Player Daemon) can do this. Ubuntu menu "Applications->Add/Remove..." didn't provide this choice, so I've discovered "System->Administration->Synaptic Package Manager" which shows libraries and application and in addition can display screenshots for applications, but there is a
 
