@@ -66,3 +66,6 @@ Needed to transmit music from my notebook to an audio system connected to deskto
  #. Developer opens web-interface that queries Moderation Queue and provides "approve", "decline" actions along with item content and information
  #. Upon "approve" or "decline" command from web-interface Moderation Queue executes associated actions
  #. Approved screen is uploaded to SVN/Mercurial/Whatever repository under Developer's credentials, but with User's contribution in comments
+
+== See also ==
+http://code.google.com/p/support/issues/detail?id=3603
