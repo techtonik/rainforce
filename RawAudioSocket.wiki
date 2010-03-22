@@ -1,5 +1,5 @@
 #summary Speakers running at port 44100 tcp/udp playing raw PCM audio stream
-#labels Concept
+#labels Concept,UserStory,Phase-InProcess
 
 == User Story ==
 I've got an old box with speakers in my network. Now I need a fast way to transmit sound to this box. I would like to avoid complicated protocols, discovery etc. Plain way to send sound over network, so the box can immediately transmit it to speakers.
