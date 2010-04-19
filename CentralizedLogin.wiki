@@ -15,6 +15,10 @@ Quoting issue #7, it is very annoying to have numerous logins for various [http:
    * meta: http://psf.upfronthosting.co.za/roundup/meta/
    * setuptools: http://bugs.python.org/setuptools/
    * pypi: http://sourceforge.net/tracker/?group_id=66150&atid=513503
+ * mailing list subscription management
+ * mailman private archives
+   * http://mail.python.org/mailman/private/pydotorg/
+   * http://mail.python.org/mailman/private/soc2010-mentors/
 
 *web pages* (that would be nice to see [ModerationQueue#Corrections_for_Python_site_documentation editable from web])
  * http://python.org
@@ -24,9 +28,4 @@ In addition many python.org sites don't have valid *SSL/TLS certificate* for sec
 
 
 == Details ==
-_run out of time to fill this in_
-
-To reduce amount  your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+_need some more time to fill this in, but it will be OAuth for sure_
