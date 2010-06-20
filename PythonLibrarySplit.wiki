@@ -1,0 +1,14 @@
+#summary Splitting Python standard library code for easy maintenance.
+#labels TheFlow,Concept
+
+= Introduction =
+
+Being a contributor to a module Python standard library is unpleasant business. The biggest problem is that since its birth Python language is developed as monolithic code base. While you can `import module` in .py file, you can't 100% reliably find all source code for this module, related test cases and documentation sources. Without this information it is impossible to contribute a patch, and looking for this information in may take more time that most of us non-core folks can afford.
+
+People are not interested in submitting their modules to standard library and those who did quickly lose motivation to support them. Because after module is in stdlib, you can only monitor it as a whole. And there is absolutely no visibility into module development from outside.
+
+= Python Module Split =
+
+To make it possible to monitor changes in Python standard library on a module level, it is possible to split code history (thanks to the nature of Subversion central repository) into separate Mercurial repositories and update them incrementally.
+
+Splitting code into separate repositories is a *first step* that should also take into account branches for various Python versions. The *second step* is make these Mercurial repositories self-sufficient for testing and documenting module.
