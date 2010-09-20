@@ -15,6 +15,9 @@
    * `doc/*`
    * Wiki pages
  * [ ] Upload to PyPI
+{{{
+python setup.py sdist upload
+}}}
 
 <wiki:comment>
 === Development ===
