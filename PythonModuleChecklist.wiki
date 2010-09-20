@@ -1,4 +1,4 @@
-#summary Things to remember for release <wiki:comment>and development</wiki:comment>
+#summary Things to remember for release
 #labels TheFlow
 
 === Release ===
