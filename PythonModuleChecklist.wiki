@@ -1,0 +1,23 @@
+#summary Things to remember for release <wiki:comment>and development</wiki:comment>
+#labels TheFlow
+
+=== Release ===
+
+ * [ ] Update version
+   * `module.py`
+   * `setup.py`
+   * `doc/*`
+ * [ ] Update ChangeLog
+   * `CHANGELOG`
+   * `README`
+ * [ ] Update Documentation
+   * `*.py` docstrings
+   * `doc/*`
+   * Wiki pages
+ * [ ] Upload to PyPI
+
+<wiki:comment>
+=== Development ===
+
+ * [ ] ...
+</wiki:comment>
