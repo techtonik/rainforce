@@ -1,0 +1,28 @@
+#summary Unified diff on steroids.
+#labels Concept,TheFlow
+
+= Rationale =
+
+Abundance of version control systems increases barriers for open source collaboration. Faced with the problem to learn all of them, developers tried to create tools to [http://mercurial.selenic.com/wiki/RepositoryConversion convert between repositories] or add support to work directly with alien repos with their VCS of choice. This requires exporting and converting changeset information.
+
+Unfortunately, some VCS provide access to necessary data about their changeset only through low level API. For example, for successful SVN -> HG conversion you need to install SVN bindings for Python, and it can be [http://techtonik.rainforce.org/2010/09/hgsubversion-installing-on-windows.html hard to get these in place] for particular platforms (e.g. Mercurial MSI installation on Windows).
+
+Another problem that while many VCS provide sufficient information about existing changeset, they are not that good at telling about uncommitted changes (for example, `svn diff` won't contain contents of copied or moved files, and `svn st` doesn't show where the file was copied from, etc).
+
+The above points provide many pitfalls for [http://code.google.com/p/rietveld/ code review] systems, which should extract as much information as possible about changeset, either committed or uncommited.
+
+Extensible Changeset Format alleviates these problems. It contains information about filesystem tree modification not tied to any particular VCS (set of common properties). It also contains VCS specific information about changeset (meta data changes) in forward and backward compatible way. Tools supporting this format, may explicitly ignore properties they don't understand (and add support for them incrementally). Defined sets of properties give VCS authors ability to create interoperable instruments on early stage of development.
+
+= Details =
+
+=== Contents ===
+*Changeset* is an atomic modification to filesystem tree. It contains *data* about actual modifications of filesystem tree (set of operations in appropriate order) as well as *meta-data* related to VCS that manages this modification (revision number, parents, author, repository id, root path, etc).
+
+=== Format ===
+Although the first thing that comes to mind after the word "eXtensible" is XML, the format should be plain simple to be easily mapped to JSON or similar representation (i.e. flat XML, without attributes).
+
+In XML it is logical to use namespaces for separation of data sets, but to keep format dead simple (and translatable into JSON and back), it may be easier to separate elements from namespaces with underscore (no minus, because you won't be able to map the name of field into the name of object property as-is).
+
+<wiki:comment>
+speaking about atomic modification to filesystem tree, unfortunately, not many filesystems support atomic renames
+</wiki:comment>
