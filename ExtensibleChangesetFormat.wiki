@@ -1,7 +1,7 @@
 #summary Unified diff on steroids.
 #labels Concept,TheFlow
 
-= Rationale =
+== Rationale ==
 
 Abundance of version control systems increases barriers for open source collaboration. Faced with the problem to learn all of them, developers tried to create tools to [http://mercurial.selenic.com/wiki/RepositoryConversion convert between repositories] or add support to work directly with alien repos with their VCS of choice. This requires exporting and converting changeset information.
 
@@ -13,7 +13,7 @@ The above points provide many pitfalls for [http://code.google.com/p/rietveld/ c
 
 Extensible Changeset Format alleviates these problems. It contains information about filesystem tree modification not tied to any particular VCS (set of common properties). It also contains VCS specific information about changeset (meta data changes) in forward and backward compatible way. Tools supporting this format, may explicitly ignore properties they don't understand (and add support for them incrementally). Defined sets of properties give VCS authors ability to create interoperable instruments on early stage of development.
 
-= Details =
+== Details ==
 
 === Contents ===
 *Changeset* is an atomic modification to filesystem tree. It contains *data* about actual modifications of filesystem tree (set of operations in appropriate order) as well as *meta-data* related to VCS that manages this modification (revision number, parents, author, repository id, root path, etc).
@@ -26,3 +26,6 @@ In XML it is logical to use namespaces for separation of data sets, but to keep 
 <wiki:comment>
 speaking about atomic modification to filesystem tree, unfortunately, not many filesystems support atomic renames
 </wiki:comment>
+
+== References ==
+ # [http://svn.haxx.se/dev/archive-2010-08/0691.shtml Proposal to Subversion developers]
