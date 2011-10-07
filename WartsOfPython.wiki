@@ -14,6 +14,23 @@ As a result, if imported modules are using logging in simplified mode, you have 
 
 http://bugs.python.org/issue1164953
 
+This behaviour is confusing for people, its not intuitive. Consider the following two separate Python sessions:
+{{{
+>>> import logging as l
+>>> l.error("x")
+ERROR:root:x
+>>> l.getLogger('x').error('x')
+ERROR:x:x
+}}}
+
+{{{
+>>> import logging as l
+>>> l.getLogger('x').error('x')
+No handlers could be found for logger "x"
+}}}
+
+http://bugs.python.org/issue1354052
+
 *recommendation* (ideal case) - Start with study of several use case scenarios:
  # basic 'logging' usage - 'import logging; logging.log()'
  # advanced usage - all imported modules are using 'import logging; logging.log()'
