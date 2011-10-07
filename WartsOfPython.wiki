@@ -1,0 +1,20 @@
+#summary Won't fix issues that make Python less pythonic.
+
+=== Logging (2.x tested, 3.x unknown) ===
+
+To make `logging` module more easy to use, e.g.
+{{{
+import logging
+
+logging.error('SNAFU')
+}}}
+it makes an automatic configuration when any top level functions like logging.error() are called. More specifically, it implicitly calls `basicConfig()` which is a one-shot function that can be called only once.
+
+As a result, if imported modules are using logging in simplified mode, you have to keep in mind different things about `basicConfig()` that are better to live without.
+
+http://bugs.python.org/issue1164953
+
+*recommendation* (ideal case) - Start with study of several use case scenarios:
+ # basic 'logging' usage - 'import logging; logging.log()'
+ # advanced usage - all imported modules are using 'import logging; logging.log()'
+ # more advanced example - mixed usage of named and unnamed loggers in imported modules and root app
