@@ -35,3 +35,4 @@ http://bugs.python.org/issue1354052
  # basic 'logging' usage - 'import logging; logging.log()'
  # advanced usage - all imported modules are using 'import logging; logging.log()'
  # more advanced example - mixed usage of named and unnamed loggers in imported modules and root app
+ # default behaviour - with two and three level hierarchy of modules
