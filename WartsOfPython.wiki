@@ -31,6 +31,9 @@ No handlers could be found for logger "x"
 
 http://bugs.python.org/issue1354052
 
+It is also doubtful how to provide default logging configuration for library? For example, when library wants to disable all output by default. If such library is imported after the main logging configuration that enables library output - then such import will break the config.
+
+
 *recommendation* (ideal case) - Start with study of several use case scenarios:
  # basic 'logging' usage - 'import logging; logging.log()'
  # advanced usage - all imported modules are using 'import logging; logging.log()'
