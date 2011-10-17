@@ -1,0 +1,15 @@
+#summary time to stop waste it
+
+== Bootstrap ==
+
+"I want to to start hacking in no time."
+
+ * (Done) [http://code.google.com/p/spyderlib Spyder IDE]
+{{{
+# creates project in spyder/ directory, needs mercurial, needs python
+hg clone https://code.google.com/p/spyderlib/ spyder
+cd spyder
+python bootstrap.py
+}}}
+
+ * (Started) Trac
