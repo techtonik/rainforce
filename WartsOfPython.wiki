@@ -53,4 +53,6 @@ If the module is executed from command line, `__name__` will equal to `__main__`
 
 Now about warts.
  # You need to insert the line `logger = logging.getLogger(__name__)` into every file, even though logging could detect this name automatically and invoke appropriate logger by default using inspect (example code at https://gist.github.com/1291125).
- # [http://docs.python.org/library/logging.html#logrecord-attributes Log record] contains `%(module)s` field that you can use to format message, but this is not the module `__name__` above - it is merely `name portion of %(filename)s`.
+ # [http://docs.python.org/library/logging.html#logrecord-attributes Log record] contains `%(module)s` field that you can use to format message, but this is not the module `__name__` above - it is merely `name portion of %(filename)s`. You need to keep in mind that you need `%(name)s` - name of the logger - here.
+
+*recommendation* - The above can be fixed with Python code, but a lot of logging calls incur performance overhead by logger choosing and filtering. However, if `__name__` convention is adopted by default, the Python internals can be reworked so that filtering is done on a interpreter level even before the code enters log() function.
