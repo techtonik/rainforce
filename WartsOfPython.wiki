@@ -1,5 +1,7 @@
 #summary Won't fix issues that make Python less pythonic.
 
+<wiki:toc max_depth="1" />
+
 === Logging hidden magic (2.x tested, 3.x unknown) ===
 
 To make `logging` module more easy to use, e.g.
