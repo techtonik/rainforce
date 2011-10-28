@@ -4,7 +4,7 @@ Contents:
 
 <wiki:toc />
 
-=== Logging hidden magic (2.x tested, 3.x unknown) ===
+== Logging hidden magic (2.x tested, 3.x unknown) ==
 
 To make `logging` module more easy to use, e.g.
 {{{
@@ -45,7 +45,7 @@ It is also doubtful how to provide default logging configuration for library? Fo
  # default behaviour - with two and three level hierarchy of modules
 
 
-=== Logging best practices - specify `__name__` manually ===
+== Logging best practices - specify `__name__` manually ==
 
 Best practices recommend using module `__name__` variable as logger's name. `__name__`  that contains the name under which a module is imported.
 {{{
@@ -60,3 +60,20 @@ Now about warts.
  # [http://docs.python.org/library/logging.html#logrecord-attributes Log record] contains `%(module)s` field that you can use to format message, but this is not the module `__name__` above - it is merely `name portion of %(filename)s`. You need to keep in mind that you need `%(name)s` - name of the logger - here.
 
 *recommendation* - The above can be fixed with Python code, but a lot of logging calls incur performance overhead by logger choosing and filtering. However, if `__name__` convention is adopted by default, the Python internals can be reworked so that filtering is done on a interpreter level even before the code enters log() function.
+
+== Subprocess - implicit argument conversion ==
+
+[http://docs.python.org/library/subprocess.html Subprocess] module was made to reduce clutter around various ways of executing external programs from Python. Now everything is concentrated in single module, which is better than before, but not enough (sad, but true).
+
+To understand the major flaw, you need to be aware that external programs can be executed directly, or from shell. The latter is required to ... (well, I couldn't find explanation in Python manual), but I guess to inherit environment variable, so that if your command is in %PATH% - it can be found.
+
+The way the program is executed is controlled by `shell` argument to the main subprocess function - `Popen`. However, this changes the meaning of the first argument (defining the command to be executed and its params)  quite significantly. That means it is possible to lose your arguments or pass them to the wrong command or just fail on one platform, but work on the other.
+
+== Subprocess - awkward API ==
+
+If you ever looked at subprocess examples - you may have noticed how lengthy the commands are. Coupled with the above wart, this makes it almost absolutely impossible to use Python as a cross-platform replacement of shell language.
+
+*What can be done?*
+Provide helpers with consistent meaning of arguments aimed to solve particular user level tasks:
+  # Execute command getting its output for further processing, e.g. `out = callout('svn log %s' % fname)
+The argument above can be list only for the sake of quoting it properly (if needed).
