@@ -63,9 +63,9 @@ Now about warts.
 
 == Subprocess - implicit argument conversion ==
 
-[http://docs.python.org/library/subprocess.html Subprocess] module was made to reduce clutter around various ways of executing external programs from Python. Now everything is concentrated in single module, which is better than before, but not enough (sad, but true).
+[http://docs.python.org/library/subprocess.html Subprocess] module did a great job to reduce the number of various ways and pitfalls of executing external programs from Python, but it is not enough.
 
-To understand the major flaw, you need to be aware that external programs can be executed directly, or from shell. The latter is required to ... (well, I couldn't find explanation in Python manual), but I guess to inherit environment variable, so that if your command is in %PATH% - it can be found.
+External programs can be executed directly, or from shell. Why the latter is required is not immediately obvious (IMO it should be explained in Python manual, but I am busy with [http://code.google.com/p/pydotorg/issues/detail?id=6 pydotorg:issue:6] to fix it the old way), but I guess it is to inherit environment variable to find your command is in %PATH%.
 
 The way the program is executed is controlled by `shell` argument to the main subprocess function - `Popen`. However, this changes the meaning of the first argument (defining the command to be executed and its params)  quite significantly. That means it is possible to lose your arguments or pass them to the wrong command or just fail on one platform, but work on the other.
 
