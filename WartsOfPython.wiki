@@ -77,3 +77,9 @@ If you ever looked at subprocess examples - you may have noticed how lengthy the
 Provide helpers with consistent meaning of arguments aimed to solve particular user level tasks:
   # Execute command getting its output for further processing, e.g. `out = callout('svn log %s' % fname)
 The argument above can be list only for the sake of quoting it properly (if needed).
+
+
+= Links =
+
+Links to other critics that can be useful for Python refactoring:
+ # http://pydanny.blogspot.com/2011/11/redux-python-things-i-dont-like.html
