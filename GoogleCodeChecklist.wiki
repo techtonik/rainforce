@@ -1,0 +1,17 @@
+#summary Best practices for projects hosted on Google Code
+
+=== Introduction ===
+
+ * Create a Google Group for feedback and code reviews
+<wiki:comment>not mailing list, because
+1. user will need yet another password / annoying registration
+2. not everybody wants to subscribe
+3. lists usually don't have convenient search and web archives
+</wiki:comment>
+
+ * Enable code reviews in `Administer -> Source` and redirect them to your Group address
+<wiki:comment>
+people need to ask question about your code
+</wiki:comment>
+
+ * Tune columns in issue tracker 
