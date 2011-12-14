@@ -4,7 +4,7 @@
 
 The goal of bootstrap activity is to provide an easy and fast entrypoint to run open-source projects from source, and to start with development (i.e. fixing bugs) as soon as possible.
 
- * (Planning) [bugs.python.org http://wiki.python.org/moin/TrackerDevelopment] using [https://bitbucket.org/techtonik/devinabox/ dev-in-a-box] port)
+ * (Planning) [http://wiki.python.org/moin/TrackerDevelopment bugs.python.org ] using [https://bitbucket.org/techtonik/devinabox/ dev-in-a-box] port)
 
  * (Frozen) Trac
 
