@@ -1,8 +1,14 @@
-#summary time to stop waste it
+#summary It's time to stop waste it! or I want to to start hacking in no time.
 
 == Bootstrap ==
 
-"I want to to start hacking in no time."
+The goal of bootstrap activity is to provide an easy and fast entrypoint to run open-source projects from source, and to start with development (i.e. fixing bugs) as soon as possible.
+
+ * (Planning) [bugs.python.org http://wiki.python.org/moin/TrackerDevelopment] using [https://bitbucket.org/techtonik/devinabox/ dev-in-a-box] port)
+
+ * (Frozen) Trac
+
+----
 
  * (Done) [http://code.google.com/p/spyderlib Spyder IDE]
 {{{
@@ -12,4 +18,8 @@ cd spyder
 python bootstrap.py
 }}}
 
- * (Started) Trac
+== Workflow ==
+
+Optimize project development workflow. Remove barriers for contributors to participate in the project by taking routine stuff out of the process. Try to save people time making contributions as effective as possible and keeping collaboration fun.
+
+ * GoogleCodeChecklist - lists some points for tuning project hosting
