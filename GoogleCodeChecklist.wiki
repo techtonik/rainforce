@@ -1,17 +1,24 @@
 #summary Best practices for projects hosted on Google Code
 
-=== Introduction ===
+=== Make your project accessible ===
 
- * Create a Google Group for feedback and code reviews
+ * [ ] Create a Google Group for feedback and code reviews
 <wiki:comment>not mailing list, because
 1. user will need yet another password / annoying registration
 2. not everybody wants to subscribe
 3. lists usually don't have convenient search and web archives
 </wiki:comment>
 
- * Enable code reviews in `Administer -> Source` and redirect them to your Group address
+ * [ ] Enable code reviews in `Administer -> Source` and redirect them to your Group address
 <wiki:comment>
 people need to ask question about your code
 </wiki:comment>
 
- * Tune columns in issue tracker 
+ * [ ] Tune columns in issue tracker
+
+=== Make it interesting ===
+
+ * [ ] Make sure there is a clear answer "what your project does?"
+
+ * [ ] Document your architecture, see examples:
+   * http://docs.mediagoblin.org/codebase.html
