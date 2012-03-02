@@ -4,6 +4,24 @@ Contents:
 
 <wiki:toc />
 
+= Logging =
+
+Standard Python logging suxx. Prooflinks:
+ * [https://github.com/Supervisor/supervisor/blob/master/supervisor/loggers.py Supervisor]
+ * [http://twistedmatrix.com/trac/wiki/TwistedLogging Twisted]
+ * [http://sayspy.blogspot.com/2009/07/results-of-informal-poll-about-standard.html 3rd place in modules that need redesign]
+ * [http://packages.python.org/Logbook/ Logbook - alternative with features that `logging` misses] 
+
+{{{
+Q: Why?
+A: You will inevitably face with problems below and will have to read a
+lengthy doc with proper explanations
+Q: Why it can not be fixed?
+A: Backwards compatibility
+Q: Why not logging2?
+A: Some Python developers do not feel that DMMT is sufficient reason
+}}}
+
 == Logging hidden magic (2.x tested, 3.x unknown) ==
 
 To make `logging` module more easy to use, e.g.
@@ -60,6 +78,8 @@ Now about warts.
  # [http://docs.python.org/library/logging.html#logrecord-attributes Log record] contains `%(module)s` field that you can use to format message, but this is not the module `__name__` above - it is merely `name portion of %(filename)s`. You need to keep in mind that you need `%(name)s` - name of the logger - here.
 
 *recommendation* - The above can be fixed with Python code, but a lot of logging calls incur performance overhead by logger choosing and filtering. However, if `__name__` convention is adopted by default, the Python internals can be reworked so that filtering is done on a interpreter level even before the code enters log() function.
+
+= Subprocess =
 
 == Subprocess - implicit argument conversion ==
 
