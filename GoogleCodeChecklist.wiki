@@ -9,12 +9,16 @@
 3. lists usually don't have convenient search and web archives
 </wiki:comment>
 
- * [ ] Enable code reviews in `Administer -> Source` and redirect them to your Group address
+ * Administer -> Source
+   * [ ] Enable code reviews
+   * [ ] Redirect code reviews to your Group address
 <wiki:comment>
 people need to ask question about your code
 </wiki:comment>
 
- * [ ] Tune columns in issue tracker
+ * Administer -> Issues
+   * [ ] Tune columns in issue tracker
+   * [ ] Check "Non-members can set labels when creating issues"
 
 === Make it interesting ===
 
