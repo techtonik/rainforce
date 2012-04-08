@@ -28,4 +28,4 @@ Optimize project development workflow. Remove barriers for contributors to parti
 == Spread Good Usability Practices ==
 
 Keyboard shortcuts:
- * mouseless.js - add shortcuts that work regardless of keyboard layout (adopt MIT-licensed https://github.com/madrobby/keymaster by Thomas Fuchs). See [http://codereview.appspot.com Rietveld example]).
+ * mouseless.js - add shortcuts that work regardless of keyboard layout (adopt MIT-licensed https://github.com/madrobby/keymaster by Thomas Fuchs). See [http://codereview.appspot.com Rietveld example].
