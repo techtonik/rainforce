@@ -24,3 +24,8 @@ python bootstrap.py
 Optimize project development workflow. Remove barriers for contributors to participate in the project by taking routine stuff out of the process. Try to save people time making contributions as effective as possible and keeping collaboration fun.
 
  * GoogleCodeChecklist - lists some points for tuning project hosting
+
+== Spread Good Usability Practices ==
+
+Keyboard shortcuts:
+ * mouseless.js - add shortcuts that work regardless of keyboard layout (adopt MIT-licensed https://github.com/madrobby/keymaster by Thomas Fuchs). See [http://codereview.appspot.com Rietveld example]).
