@@ -6,7 +6,8 @@ The goal of bootstrap activity is to provide an easy and fast entrypoint to run 
 
  * (Planning) [http://wiki.python.org/moin/TrackerDevelopment bugs.python.org ] using [https://bitbucket.org/techtonik/devinabox/ dev-in-a-box] port
 
- * (Frozen) Trac
+ * ([https://bitbucket.org/techtonik/trac-bootstrap-script/src Frozen]) Trac
+    * Hard dependency on setuptools ([http://trac.edgewall.org/ticket/10419 can't be helped])
 
 ----
 
