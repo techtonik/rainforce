@@ -5,7 +5,7 @@
 I've got an old box with speakers in my network. Now I need a fast way to transmit sound to this box. I would like to avoid complicated protocols, discovery etc. Plain way to send sound over network, so the box can immediately transmit it to speakers.
 
 == Details ==
-As the system should be as simple as possible, there is *no discovery or negotiation*. Client sends audio data in *raw audio PCM format* defined below to explicitly specified server name/IP address. Server plays them immediately, perhaps mixing several streams together. No volume control, no cache control - nothing. Server may have a buffer for gapless playback, but should not cache large amount of data to stop playing almost immediately after transmission stopped.
+As the system should be as simple as possible, there is *no discovery or negotiation*. Client sends audio data in *raw audio PCM format* defined below to explicitly specified server name/IP address. Server plays immediately, perhaps mixing several streams together. No volume control, no cache control - nothing. Server may have a buffer for gapless playback, but should not cache large amount of data to stop playing almost immediately after transmission is stopped.
 
 *Raw audio socket* uses port *TCP/UDP port 44100*
   * numbered after sampling rate - see below
@@ -19,9 +19,9 @@ As the system should be as simple as possible, there is *no discovery or negotia
 
 
 == Remarks ==
- * everybody can make you box "shout"
- * this port can be used to "ping" colleague in headphones over WiFi
- * if you need access control - you can make server listen on local interface and forward stream to it from your own port
+ * everybody on the same network can make your box shout
+ * you can "ping" your colleagues in headphones over WiFi
+ * if you need access control - start server on local interface and forward stream to it from your own port
  * server may accept packets at a faster rate if requested to do so by some other external means, but by default it's buffer is limited. Client also can limit the amount of sent packets
 
 == References ==
@@ -29,4 +29,4 @@ As the system should be as simple as possible, there is *no discovery or negotia
  # http://www.absoluteastronomy.com/topics/Red_Book_%28audio_CD_standard%29
 
 == Implementations ==
- - NONE so far -
+ || [https://bitbucket.org/techtonik/audiosocket audiosocket] || Public Domain || Python || -- in progress -- ||
