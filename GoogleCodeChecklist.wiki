@@ -26,3 +26,8 @@ people need to ask question about your code
 
  * [ ] Document your architecture, see examples:
    * http://docs.mediagoblin.org/codebase.html
+
+=== Be inclusive ===
+
+ * [ ] Add a label for issues what current project members are unlikely to take - HelpNeeded, Priority-No, whatever
+ * [ ] Add Easy tasks to tracker for beginners
