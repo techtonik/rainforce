@@ -27,6 +27,7 @@ As the system should be as simple as possible, there is *no discovery or negotia
 == References ==
  # http://wiki.multimedia.cx/index.php?title=PCM#Red_Book_CD_Audio
  # http://www.absoluteastronomy.com/topics/Red_Book_%28audio_CD_standard%29
+ # https://developers.google.com/native-client/devguide/coding/audio
 
 == Implementations ==
  || [https://bitbucket.org/techtonik/audiosocket audiosocket] || Public Domain || Python || -- in progress -- ||
