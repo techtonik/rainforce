@@ -79,9 +79,9 @@ Now about warts.
 
 *recommendation* - The above can be fixed with Python code, but a lot of logging calls incur performance overhead by logger choosing and filtering. However, if `__name__` convention is adopted by default, the Python internals can be reworked so that filtering is done on a interpreter level even before the code enters log() function.
 
-= Subprocess =
+== Subprocess ==
 
-== Subprocess - implicit argument conversion ==
+=== Subprocess - implicit argument conversion ===
 
 [http://docs.python.org/library/subprocess.html Subprocess] module did a great job to reduce the number of various ways and pitfalls of executing external programs from Python, but it is not enough.
 
@@ -89,7 +89,7 @@ External programs can be executed directly, or from shell. Why the latter is req
 
 The way the program is executed is controlled by `shell` argument to the main subprocess function - `Popen`. However, this changes the meaning of the first argument (defining the command to be executed and its params)  quite significantly. That means it is possible to lose your arguments or pass them to the wrong command or just fail on one platform, but work on the other.
 
-== Subprocess - awkward API ==
+=== Subprocess - awkward API ===
 
 If you ever looked at subprocess examples - you may have noticed how lengthy the commands are. Coupled with the above wart, this makes it almost absolutely impossible to use Python as a cross-platform replacement of shell language.
 
@@ -98,6 +98,21 @@ Provide helpers with consistent meaning of arguments aimed to solve particular u
   # Execute command getting its output for further processing, e.g. `out = callout('svn log %s' % fname)
 The argument above can be list only for the sake of quoting it properly (if needed).
 
+
+== Standard library glitches ==
+
+=== os.path.split has platform dependent behavior ===
+[http://docs.python.org/2/library/os.path.html#os.path.split os.path.split] non-crossplatform behavior is not documented ([http://bugs.python.org/issue16413 bug #16413]).
+
+`os.path.split('c:foo')` results:
+ 
+ * Windows: `('c:', 'foo')`
+ * Linux:   `('', 'c:foo')`
+
+But `os.path.split('foo:bar')` on Windows gives `('', 'foo:bar')`.
+
+
+Summary: It would be nice to get 'import path' module with predictable cross-platform functions and notes about platform differences.
 
 = Links =
 
