@@ -4,7 +4,7 @@ Contents:
 
 <wiki:toc />
 
-= Logging =
+== Logging ==
 
 Standard Python logging suxx. Prooflinks:
  * [https://github.com/Supervisor/supervisor/blob/master/supervisor/loggers.py Supervisor]
@@ -22,7 +22,7 @@ Q: Why not logging2?
 A: Some Python developers do not feel that DMMT is sufficient reason
 }}}
 
-== Logging hidden magic (2.x tested, 3.x unknown) ==
+=== Logging hidden magic (2.x tested, 3.x unknown) ===
 
 To make `logging` module more easy to use, e.g.
 {{{
@@ -63,7 +63,7 @@ It is also doubtful how to provide default logging configuration for library? Fo
  # default behaviour - with two and three level hierarchy of modules
 
 
-== Logging best practices - specify `__name__` manually ==
+=== Logging best practices - specify `__name__` manually ===
 
 Best practices recommend using module `__name__` variable as logger's name. `__name__`  that contains the name under which a module is imported.
 {{{
@@ -98,6 +98,32 @@ Provide helpers with consistent meaning of arguments aimed to solve particular u
   # Execute command getting its output for further processing, e.g. `out = callout('svn log %s' % fname)
 The argument above can be list only for the sake of quoting it properly (if needed).
 
+== Measuring run time ==
+
+_There should be one-- and preferably only one --obvious way to do it._
+{{{
+>>> from datetime import datetime
+>>> s = datetime.now()
+>>> str(datetime.now() - s)
+'0:00:11.475000'
+}}}
+
+{{{
+>>> from time import time
+>>> s = time()
+>>> str(time() - s)
+'11.8889999389'
+}}}
+
+*What can be done?*
+{{{
+>>> import timer
+>>> timer.get(precision=2)
+'0:00:11.47'
+>>> timer.start('newtimername')
+>>> timer.get('newtimername')
+'0:00:11.475000'
+}}}
 
 == Standard library glitches ==
 
@@ -114,7 +140,7 @@ But `os.path.split('foo:bar')` on Windows gives `('', 'foo:bar')`.
 
 Summary: It would be nice to get 'import path' module with predictable cross-platform functions and notes about platform differences.
 
-= Links =
+== Links ==
 
 Links to other critique that can be useful for Python refactoring:
  # http://pydanny.blogspot.com/2011/11/redux-python-things-i-dont-like.html
