@@ -36,7 +36,7 @@ As a result, if imported modules are using logging in simplified mode, you have 
 
 http://bugs.python.org/issue1164953
 
-This behaviour is confusing for people, its not intuitive. Consider the following two separate Python sessions:
+This behaviour is confusing for people, it's not intuitive. Consider the following two separate Python sessions:
 {{{
 >>> import logging as l
 >>> l.error("x")
@@ -52,8 +52,9 @@ No handlers could be found for logger "x"
 }}}
 
 http://bugs.python.org/issue1354052
+http://bugs.python.org/issue16539
 
-It is also doubtful how to provide default logging configuration for library? For example, when library wants to disable all output by default. If such library is imported after the main logging configuration that enables library output - then such import will break the config.
+It is also doubtful how to provide default logging configuration for a library? For example, when library wants to disable all output by default. If such library is imported after the main logging configuration that enables library output - then such import will break the config.
 
 
 *recommendation* (ideal case) - Start with study of several use case scenarios:
