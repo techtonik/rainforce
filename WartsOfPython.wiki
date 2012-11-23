@@ -51,7 +51,7 @@ ERROR:x:x
 No handlers could be found for logger "x"
 }}}
 
-http://bugs.python.org/issue1354052
+http://bugs.python.org/issue1354052 <br/>
 http://bugs.python.org/issue16539
 
 It is also doubtful how to provide default logging configuration for a library? For example, when library wants to disable all output by default. If such library is imported after the main logging configuration that enables library output - then such import will break the config.
@@ -75,6 +75,14 @@ logger = logging.getLogger(__name__)
 If the module is executed from command line, `__name__` will equal to `__main__`, if it is imported like `import trac.db.api` then the `__name__` will be equal to `trac.db.api`. Quite convenient.
 
 Now about warts.
+ # The first time you call warning(), error() or critical() you'll get 'No handlers could be found for logger "__main__" (Python 2.x, http://bugs.python.org/issue16539)
+
+*recommendation* - For Python 2.x [http://hg.python.org/cpython/file/771f28686022/Lib/logging/__init__.py#l1669 copy NullHandler] from Python 2.7 to your library and add it as:
+{{{
+logger.addHandler(NullHandler())
+}}}
+
+Warts continued.
  # You need to insert the line `logger = logging.getLogger(__name__)` into every file, even though logging could detect this name automatically and invoke appropriate logger by default using inspect (example code at https://gist.github.com/1291125).
  # [http://docs.python.org/library/logging.html#logrecord-attributes Log record] contains `%(module)s` field that you can use to format message, but this is not the module `__name__` above - it is merely `name portion of %(filename)s`. You need to keep in mind that you need `%(name)s` - name of the logger - here.
 
