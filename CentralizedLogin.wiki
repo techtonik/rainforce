@@ -26,6 +26,13 @@ Quoting issue #7, it is very annoying to have numerous logins for various [http:
 
 In addition many python.org sites don't have valid *SSL/TLS certificate* for secure authentication that protects users against man-in-the-middle attacks.
 
+== Other examples ==
+
+It is also very annoying to have multiple logins for PySide (Qt) development sites:
+
+ * wiki: http://qt-project.org/wiki/
+ * bug tracker: https://bugreports.qt-project.org/
+ * code reviews: https://codereview.qt-project.org/
 
 == Details ==
 _need some more time to fill this in, but it will be OAuth for sure_
