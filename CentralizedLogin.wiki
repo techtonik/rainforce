@@ -19,6 +19,7 @@ Quoting issue #7, it is very annoying to have numerous logins for various [http:
  * mailman private archives
    * http://mail.python.org/mailman/private/pydotorg/
    * http://mail.python.org/mailman/private/soc2010-mentors/
+ * buildbot: http://buildbot.python.org/all/waterfall
 
 *web pages* (that would be nice to see [ModerationQueue#Corrections_for_Python_site_documentation editable from web])
  * http://python.org
