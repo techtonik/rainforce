@@ -4,6 +4,23 @@ Contents:
 
 <wiki:toc />
 
+== stdout buffering ==
+Python is a victim of premature optimization.
+{{{
+import sys
+import time
+
+print("get", end="")
+time.sleep(3)
+print("me")
+time.sleep(3)
+sys.stdout.write("onscreen")
+time.sleep(3)
+}}}
+In this code phrases "get", and "onscreen" will appear only after the sleep operation (Linux, Python 3.2).  To turn this off you need [http://stackoverflow.com/questions/107705/python-output-buffering some monkey-patching hacks].
+
+For new Python users who not aware of various buffering this fact is very confusing. This question that print without newline doesn't work is [http://stackoverflow.com/questions/tagged/python?page=1&sort=votes&pagesize=50 45th from top 100] on StackOverflow.
+
 == Logging ==
 
 Standard Python logging suxx. Prooflinks:
