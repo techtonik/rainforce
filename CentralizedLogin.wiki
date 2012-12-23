@@ -3,6 +3,9 @@
 
 It is very annoying to maintain multiple passwords for a single domain.
 
+<wiki:toc />
+
+
 === login.python.org ===
 
 This started with issue #7 about numerous logins for various [http://python.org python.org] sites, and the need to create login.python.org service. Quoting sites in this domain:
