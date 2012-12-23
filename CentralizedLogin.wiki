@@ -1,9 +1,11 @@
-#summary Draft for centralized login service using login.python.org as an example
+#summary Universal centralized login service (draft)
 #labels UserStory,TheFlow,Concept
 
-== Introduction ==
+It is very annoying to maintain multiple passwords for a single domain.
 
-Quoting issue #7, it is very annoying to have numerous logins for various [http://python.org python.org] sites:
+=== login.python.org ===
+
+This started with issue #7 about numerous logins for various [http://python.org python.org] sites, and the need to create login.python.org service. Quoting sites in this domain:
 
 *sites that require user login*
  * wiki
@@ -27,7 +29,7 @@ Quoting issue #7, it is very annoying to have numerous logins for various [http:
 
 In addition many python.org sites don't have valid *SSL/TLS certificate* for secure authentication that protects users against man-in-the-middle attacks.
 
-== Other examples ==
+=== PySide ===
 
 It is also very annoying to have multiple logins for PySide (Qt) development sites:
 
@@ -35,5 +37,28 @@ It is also very annoying to have multiple logins for PySide (Qt) development sit
  * bug tracker: https://bugreports.qt-project.org/
  * code reviews: https://codereview.qt-project.org/
 
+=== SCons ===
+
+SCons has a wiki at http://scons.org/wiki which requires login/password, while it is possible to alternatively require only email.
+
 == Details ==
-_need some more time to fill this in, but it will be OAuth for sure_
+
+Probably something like OAuth works. Several implementation levels - basic, intermediate, advanced, ...
+
+Server map:
+{{{
+[Login Server] --- [Other Site]
+               --- [Another Site]
+                   ...
+}}}
+
+`[Login Server]`
+  * login and registration
+  * user id (email)
+  * transforming user info in the way `[Other Site]` requires
+  * send user data to `[Other Site]`
+    * choose communication way with `[Other Site]`
+
+Inspiration links:
+  * https://openhatch.org/wiki/Authentication_integration
+  
