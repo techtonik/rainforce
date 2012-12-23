@@ -41,6 +41,11 @@ It is also very annoying to have multiple logins for PySide (Qt) development sit
 
 SCons has a wiki at http://scons.org/wiki which requires login/password, while it is possible to alternatively require only email.
 
+
+=== Blender ===
+ * http://wiki.blender.org/ - keyboardless login wanted
+ * https://projects.blender.org/ - 
+
 == Details ==
 
 Probably something like OAuth works. Several implementation levels - basic, intermediate, advanced, ...
