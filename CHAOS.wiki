@@ -17,5 +17,5 @@ Cross-platform. CHAOS is not an operating system in classical sense. It is a set
 
 = Features =
 
-`AudioSocket` - human need to send digital sound over the distance
-`Canvas2D` - human need to simply draw (visualize) things digitally
+ * `AudioSocket` - human need to send digital sound over the distance
+ * `Canvas2D` - human need to simply draw (visualize) things digitally
