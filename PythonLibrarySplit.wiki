@@ -3,12 +3,16 @@
 
 = Introduction =
 
-Being a contributor to a module Python standard library is unpleasant business. The biggest problem is that since its birth Python language is developed as monolithic code base. While you can `import module` in .py file, you can't 100% reliably find all source code for this module, related test cases and documentation sources. Without this information it is impossible to contribute a patch, and looking for this information in may take more time that most of us non-core folks can afford.
+Being a contributor to a module in Python standard library is unpleasant business. Since its birth Python language was developed as monolithic code base where core interpreter and library always come together. This for a long time was hiding the problem of standard library structure. When doing `import module` in .py file, you couldn't reliably find all source code for this module, related test cases and documentation sources. Without this information it is impossible to contribute a patch, and looking for this information in may take more time that most of us non-core folks can afford.
 
 People are not interested in submitting their modules to standard library and those who did quickly lose motivation to support them. Because after module is in stdlib, you can only monitor it as a whole. And there is absolutely no visibility into module development from outside.
 
 = Python Module Split =
 
-To make it possible to monitor changes in Python standard library on a module level, it is possible to split code history (thanks to the nature of Subversion central repository) into separate Mercurial repositories and update them incrementally.
+To make it possible to monitor changes in Python standard library on a module level, it is possible to split code history (filter it) using paths related to single module. This requires a mapping from module name to the related paths on filesystem. This also requires that stdlib layout doesn't change, or that there is at least single canonical layout of stdlib and corresponding module files for that map. This layout is Python source code tree.
 
-Splitting code into separate repositories is a *first step* that should also take into account branches for various Python versions. The *second step* is make these Mercurial repositories self-sufficient for testing and documenting module.
+Splitting code into separate repositories is a *first step* that should also take into account branches for various Python versions. The *second step* is to develop tools that allow to monitor, develop, test and document modules in isolation from the rest of stdlib.
+
+= Proof of Concept ==
+
+Working code for integration with tracker and other parts of python.org infrastructure is located at: https://bitbucket.org/techtonik/python-stdlib
