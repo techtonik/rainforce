@@ -1,6 +1,8 @@
 #summary Universal centralized login service (draft)
 #labels UserStory,TheFlow,Concept
 
+== Why? ==
+
 It is very annoying to maintain multiple passwords for a single domain.
 
 === login.python.org ===
@@ -46,7 +48,19 @@ SCons has a wiki at http://scons.org/wiki which requires login/password, while i
  * http://wiki.blender.org/ - keyboardless login wanted
  * https://projects.blender.org/ - 
 
-== Details ==
+
+== How? ==
+
+Site logins are all about cookies. When a web site logs you in, it sets [http://simple.wikipedia.org/wiki/HTTP_cookie a cookie] which is then sent by browser again and again each time you travel from one page to another. Browser doesn't maintain your session automatically - the web site needs to set cookie explicitly even for the session that lasts only while your browser is open.
+
+Cookies are domain specific. You can not command browser to set cookie for example.com web site from the other domain.
+
+So, to login user to some web app, you need three things:
+  * be on the same root domain (you can set cookie for web.example.com from example.com)
+  * know the cookie format
+  * make sure the user exists in web app
+
+== Assorted Notes ==
 
 Probably something like OAuth works. Several implementation levels - basic, intermediate, advanced, ...
 
