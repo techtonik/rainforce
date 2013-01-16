@@ -60,7 +60,7 @@ So, to login user to some web app, you need three things:
   * know the cookie format
   * make sure the user exists in web app
 
-== Assorted Notes ==
+== Assorted Notes (for confusion) ==
 
 Probably something like OAuth works. Several implementation levels - basic, intermediate, advanced, ...
 
