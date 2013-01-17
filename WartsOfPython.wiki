@@ -1,5 +1,7 @@
 #summary Won't fix issues that make Python less pythonic.
 
+http://www.catb.org/jargon/html/W/wart.html
+
 Contents:
 
 <wiki:toc />
