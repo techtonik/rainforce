@@ -19,3 +19,16 @@ Cross-platform. CHAOS is not an operating system in classical sense. It is a set
 
  * `AudioSocket` - human need to send digital sound over the distance
  * `Canvas2D` - human need to simply draw (visualize) things digitally
+ * `Console` - similar to quake console, windows console or linux terminal, this is a simple interface for playing with keyboard and characters
+
+= No specs =
+
+These are wishes or rules. Because CHAOS is highly abstract, it may be impossible to define all features and settle the behavior in stone. 
+
+== Users ==
+
+When I work on a multiuser system, I wish that when I type 'users' in `console`, I get a list of all users that I can see.
+
+== Console ==
+
+In a system for humans every command has a -h help option.
