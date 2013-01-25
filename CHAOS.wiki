@@ -33,8 +33,8 @@ When I work on a multiuser system, I wish that when I type 'users' in `console`,
 
 In a system for humans every command has a -h help option.
 
-== Application ==
+== Applications ==
 
 As an application developer I know better what dependencies my program needs. Application is the root of package dependency tree, and nodes in this tree should not be shared between applications. CHAOS is a forest of independent trees.
 
-And still I want to receive security updates. For this purpose CHAOS should register the application tree and check if it contains dependency versions that are known to have security updates. It can also execute an update command on user behalf.
+And still I want to receive security updates. For this purpose CHAOS should register the application tree and check if it contains dependency versions that are known to have security updates. It can also execute an update command on user's behalf.
