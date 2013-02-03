@@ -31,7 +31,7 @@ When I work on a multiuser system, I wish that when I type 'users' in `console`,
 
 == Console ==
 
-In a system for humans every command has a -h help option.
+In a system for humans every command has a -h help option, -v provides verbose output and --version gives out the version info.
 
 == Applications ==
 
