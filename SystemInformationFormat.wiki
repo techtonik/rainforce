@@ -1,0 +1,38 @@
+#summary Speccy for the structure of system information data
+#labels Concept
+
+=== Introduction ===
+
+Tools like Facter, Ohai and [http://stackoverflow.com/questions/5149895/python-version-of-facter friends] are designed for collect information about nodes (computers, machines, hosts, network stations). Such info as operating system type, version, architecture, memory size, CPU/GPU abilities etc. The information they collect is programmatically accessible, but there is no guarantee that the structure is the same and JSON received from Ohai can be fed to program that worked with Facter.
+
+This is an attempt to define nested tree structure for describing nodes.
+
+=== Details ===
+
+Version 1.0 of the speccy.
+
+==== Flags ====
+These are used for convenience in different 'if' checks. For example:
+{{{
+if info.os.windows:
+    pass
+}}}
+
+Accessing the flags that are no set should not give an error.
+{{{
+os.windows
+os.linux
+os.osx
+}}}
+
+==== Key/Values ====
+{{{
+# OS identification - other values possible, but these
+# three are required to be returned correctly for 1.0
+os.type = ['windows'|'linux'|'osx']
+
+# don't confuse with CPU architecture
+os.architecture = ['32-bit'|'64-bit']
+}}}
+
+==== Serialization to JSON ====
