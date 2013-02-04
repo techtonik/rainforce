@@ -40,7 +40,7 @@ os.architecture = ['32-bit'|'64-bit']
 {{{
 {
     "os": {
-        "linux": false,
+        "linux": true,
         "osx": false,
         "windows": false,
 
