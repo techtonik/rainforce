@@ -36,3 +36,16 @@ os.architecture = ['32-bit'|'64-bit']
 }}}
 
 ==== Serialization to JSON ====
+
+{{{
+{
+    "os": {
+        "linux": false,
+        "osx": false,
+        "windows": false,
+
+        "type": "linux",
+        "architecture": "64-bit"
+    }
+}
+}}}
