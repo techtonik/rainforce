@@ -29,6 +29,11 @@ These are wishes or rules. Because CHAOS is highly abstract, it may be impossibl
 
 When I work on a multiuser system, I wish that when I type 'users' in `console`, I get a list of all users that I can see.
 
+Update 2013-03: Linux `users` command shows users who are currently online. It is worthy to add `users --all` option to see all users who are present on this system. Extending the idea - the CHAOS system may be the point of entry for humans into the communication cloud, so the system 'users' may be replaced by better analogy, such as system 'actor, account, robot, entity, ghost, ...'. Ghost is probably the best idea as you never know if there is a real man behind the terminal executing the program.
+<wiki:comment>
+TODO: move to detailed note
+</wiki:comment>
+
 == Console ==
 
 In a system for humans every command has a -h help option, -v provides verbose output and --version gives out the version info.
