@@ -174,3 +174,4 @@ Links to other critique that can be useful for Python refactoring:
  # http://pydanny.blogspot.com/2011/11/redux-python-things-i-dont-like.html
  # http://inventwithpython.com/blog/2012/07/09/16-common-python-runtime-errors/
  # http://packages.python.org/kitchen/unicode-frustrations.html
+ # http://zedshaw.com/essays/curing_pythons_neglect.html
