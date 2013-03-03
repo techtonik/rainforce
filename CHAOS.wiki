@@ -43,3 +43,7 @@ In a system for humans every command has a -h help option, -v provides verbose o
 As an application developer I know better what dependencies my program needs. Application is the root of package dependency tree, and nodes in this tree should not be shared between applications. CHAOS is a forest of independent trees.
 
 And still I want to receive security updates. For this purpose CHAOS should register the application tree and check if it contains dependency versions that are known to have security updates. It can also execute an update command on user's behalf.
+
+== Task Care ==
+
+In standard chaos there is chaos. To make a sense of it it makes sense to start doing some task. And when computer is rebooted the user task should survive. And tasks should be independent on each other, so that if one task eats its own resources the other may continue to work. CHAOS should provide restore, recovery and resume procedure for user activities. Tasks should survive if there is a memory leak in software and server is constantly rebooted. Task can be one application and data or several applications and data (which is harder). If apps support rerere process - they are CHAotic.
