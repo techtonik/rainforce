@@ -175,3 +175,7 @@ Links to other critique that can be useful for Python refactoring:
  # http://inventwithpython.com/blog/2012/07/09/16-common-python-runtime-errors/
  # http://packages.python.org/kitchen/unicode-frustrations.html
  # http://zedshaw.com/essays/curing_pythons_neglect.html
+
+
+Constructive approach to wart invisibility problem from JavaScript guys:
+ # http://bonsaiden.github.com/JavaScript-Garden/
