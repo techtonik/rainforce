@@ -176,6 +176,8 @@ Links to other critique that can be useful for Python refactoring:
  # http://packages.python.org/kitchen/unicode-frustrations.html
  # http://zedshaw.com/essays/curing_pythons_neglect.html
 
+ # https://wiki.theory.org/YourLanguageSucks#Python_sucks_because:
+
 
 Constructive approach to wart invisibility problem from JavaScript guys:
  # http://bonsaiden.github.com/JavaScript-Garden/
