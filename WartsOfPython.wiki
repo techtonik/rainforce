@@ -168,6 +168,10 @@ But `os.path.split('foo:bar')` on Windows gives `('', 'foo:bar')`.
 
 Summary: It would be nice to get 'import path' module with predictable cross-platform functions and notes about platform differences.
 
+=== re.sub discrepancy between matching and substitution groups ===
+
+`\0` doesn't work in Python as a whole matched regexp in substitution string for `re.sub` and friends, but `.group(0)` contains the whole match as expected. http://bugs.python.org/issue17426 This inconsistency is unlikely to be fixed thanks to backward compatibility concerns only and therefore is a wart.
+
 == Links ==
 
 Links to other critique that can be useful for Python refactoring:
