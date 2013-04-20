@@ -23,6 +23,23 @@ In this code phrases "get" and "onscreen" appear only after the sleep operation 
 
 New Python users are not aware of various buffering magic, so this issue comes to be very confusing for them. The question that print without newline doesn't work is [http://stackoverflow.com/questions/tagged/python?page=1&sort=votes&pagesize=50 45th from top 100] on StackOverflow. Note that if output is redirected to a file or a socket, new lines won't cause the buffer to flush. You need to flush output stream explicitly if you want the output from Python script to appear ASAP.
 
+== mutable defaults trap ==
+{{{
+def foo(bar=[]):
+  bar.append(0)
+  print(bar)
+
+foo()
+foo()
+}}}
+
+This gives:
+{{{
+[0]
+[0, 0]
+}}}
+Some say that [http://pythonconquerstheuniverse.wordpress.com/2012/02/15/mutable-default-arguments/ this is a feature], but if to memorize a feature you need to be hit by it, and then learn language internals, that's a wart. The solution is to provide an explicit mechanism to define function specific variables that are preserved across function invocations. This will also help to detect such state preserving bugs when porting Python programs to be multithreaded.
+
 == Logging ==
 
 Standard Python logging suxx. Prooflinks:
