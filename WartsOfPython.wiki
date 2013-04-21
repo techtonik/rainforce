@@ -189,6 +189,45 @@ Summary: It would be nice to get 'import path' module with predictable cross-pla
 
 `\0` doesn't work in Python as a whole matched regexp in substitution string for `re.sub` and friends, but `.group(0)` contains the whole match as expected. http://bugs.python.org/issue17426 This inconsistency is unlikely to be fixed thanks to backward compatibility concerns only and therefore is a wart.
 
+== Standard tools warts ==
+=== reStructuredText ===
+
+1. No way to insert empty lines between items in a bullet list
+{{{
+- item 1
+
+- item 2
+}}}
+is rendered as
+  * item 1
+  * item 2
+and the following is impossible at all
+  * item 1
+
+  * item 2
+
+2. In generated HTML, the structure of parent container depends on its children. For example, load the following into http://rst.ninjs.org to see the extra spacing between list lines:
+
+{{{
+first list
+
+- item 1
+- item 2
+- item 3
+
+second list
+
+- item 1
+- item 2::
+
+   example code section
+    
+- item 3
+- item 4
+}}}
+
+You can not reliably style HTML produced with reST. Bug was reported and closed.
+
 == Links ==
 
 Links to other critique that can be useful for Python refactoring:
