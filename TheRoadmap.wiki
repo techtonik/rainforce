@@ -2,15 +2,10 @@
 
 == Bootstrap ==
 
-The goal of bootstrap activity is to provide an easy and fast entrypoint to run open-source projects from source, and to start with development (i.e. fixing bugs) as soon as possible.
+The goal of bootstrap activity is to create the easiest way to run open-source project from source to start fixing bugs and experimenting as soon as possible. In other words the goal is to create accessible _entrypoints_.
 
  * (Planning) [http://wiki.python.org/moin/TrackerDevelopment bugs.python.org ] using [https://bitbucket.org/techtonik/devinabox/ dev-in-a-box] port
-    * (Ready) [http://roundup-tracker.org/ Roundup issue tracker]
-{{{
-hg clone http://roundup.hg.sourceforge.net:8000/hgroot/roundup/roundup
-cd roundup
-python demo.py
-}}}
+   * [ ] Split b.p.o modifications into separate patches
 
  * ([https://bitbucket.org/techtonik/trac-bootstrap-script/src Frozen]) Trac
     * Hard dependency on setuptools ([http://trac.edgewall.org/ticket/10419 can't be helped])
@@ -24,6 +19,15 @@ hg clone https://code.google.com/p/spyderlib/ spyder
 cd spyder
 python bootstrap.py
 }}}
+ * (Done) [http://roundup-tracker.org/ Roundup issue tracker]
+{{{
+hg clone http://hg.code.sf.net/p/roundup/code roundup
+cd roundup
+python demo.py
+# or
+#python roundup/scripts/roundup_admin.py
+}}}
+
 
 == Workflow ==
 
