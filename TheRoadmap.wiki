@@ -30,7 +30,9 @@ python demo.py
  * (Done) [http://www.scons.org/ SCons]
 {{{
 hg clone https://bitbucket.org/scons/scons
-python scons/src/script/scons.py 
+python scons/src/script/scons.py
+# note: if SCons is installed as a Python package, this
+#       way will probably launch installed version
 }}}
 
 == Workflow ==
