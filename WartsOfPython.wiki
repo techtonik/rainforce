@@ -226,7 +226,7 @@ second list
 - item 4
 }}}
 
-You can not reliably style HTML produced with reST. Bug was reported and closed.
+You can not reliably style HTML produced with reST, and it is considered to be [expected behavior http://sourceforge.net/p/docutils/bugs/178/].
 
 == Links ==
 
