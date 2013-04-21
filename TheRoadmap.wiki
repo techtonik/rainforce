@@ -27,7 +27,11 @@ python demo.py
 # or
 #python roundup/scripts/roundup_admin.py
 }}}
-
+ * (Done) [http://www.scons.org/ SCons]
+{{{
+hg clone https://bitbucket.org/scons/scons
+python scons/src/script/scons.py 
+}}}
 
 == Workflow ==
 
