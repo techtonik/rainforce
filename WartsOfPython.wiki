@@ -143,6 +143,10 @@ Provide helpers with consistent meaning of arguments aimed to solve particular u
   # Execute command getting its output for further processing, e.g. `out = callout('svn log %s' % fname)
 The argument above can be list only for the sake of quoting it properly (if needed).
 
+=== Subprocess - things you can not do ===
+
+  * .communicate() is recommended way to avoid deadlocks, but you can not split output into two streams to make it appear on screen during processing and stored in the output variable
+
 == Measuring run time ==
 
 _There should be one-- and preferably only one --obvious way to do it._
