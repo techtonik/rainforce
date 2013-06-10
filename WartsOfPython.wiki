@@ -2,6 +2,15 @@
 
 http://www.catb.org/jargon/html/W/wart.html
 
+Over years of dealing with warts, I can name a few reasons they appear in Python. Python is a community project, so the primary reason warta exist is a communication failure. There are thousands of Python developers, but a few are able to track what happens on the edge of Python development, needless to say provide exhaustive arguments. And most of them don't have time to defebd their position.
+
+Zen of Python established a good starting point for language evolution, but it is still not enough as it appears. If I was Tim Peters, I could extend Zen in English, but I am not, so here are two missing rules for future language development:
+
+1. When dealing with data, put cross-platform behaviour first. Data is not platform dependent by default, so do not accept defaults that are specific to local operating system (see open() function in Python 3.3 that accepts language=None parameter, which implicitly selects unknown encoding)
+
+2. When making core function API make sure that it does one thing. A lessons to study - subprocess.Popen and Python 3.3 open() encoding selection logic.
+
+
 Contents:
 
 <wiki:toc />
