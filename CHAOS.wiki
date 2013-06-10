@@ -34,9 +34,12 @@ Update 2013-03: Linux `users` command shows users who are currently online. It i
 TODO: move to detailed note
 </wiki:comment>
 
-== Console ==
+== Console Tools ==
 
 In a system for humans every command has a -h help option, -v provides verbose output and --version gives out the version info.
+
+== Console / Terminal ==
+Console has input channel that receives keyboard scancodes, transformed to `universal scancodes`, applications can chain filter them, see who chain filtered, transform these codes to chars, and optionally feed these chars to output channel. As an application developer I want all my keyboard keypresses to be available for console apps in fast and responsive manner. Text interface should be the fastest ever.
 
 == Applications ==
 
