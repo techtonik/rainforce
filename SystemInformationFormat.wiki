@@ -64,8 +64,8 @@ drive.type = ['usb']
 }}}
 
 === Tales ===
-01. I want to know if my OS is 64-bit
+01. I want to know if my OS is 64-bit <br>
 os.architecture == '64-bit'
 
-02. I want to get all USB drives in system
+02. I want to get all USB drives in system <br>
 usb = [drives[drive] for drive in drives if drive.type == 'usb']
