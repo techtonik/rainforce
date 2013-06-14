@@ -9,7 +9,7 @@ This is an attempt to define nested tree structure for describing nodes.
 
 === Details ===
 
-Version 1.0 of the speccy.
+Version 1.1 of the speccy.
 
 ==== Flags ====
 These are used for convenience in different 'if' checks. For example:
@@ -18,7 +18,7 @@ if info.os.windows:
     pass
 }}}
 
-Accessing the flags that are no set should not give an error.
+Accessing the flags that are not set should not raise exceptions.
 {{{
 os.windows
 os.linux
@@ -33,12 +33,25 @@ os.type = ['windows'|'linux'|'osx']
 
 # don't confuse with CPU architecture
 os.architecture = ['32-bit'|'64-bit']
+
+# system drives, in no particular order, including USB
+# driveid could be normalized in subsequent versions
+drives = {...}
+drives['c:\\'|'/dev/sda'] = drive
+# single drive is described as
+drive.type = ['usb']
+
 }}}
 
 ==== Serialization to JSON ====
 
 {{{
 {
+    "drives": {
+        "/dev/sdc": {
+            "type": "usb"
+        }
+    },
     "os": {
         "linux": true,
         "osx": false,
@@ -49,3 +62,10 @@ os.architecture = ['32-bit'|'64-bit']
     }
 }
 }}}
+
+=== Tales ===
+01. I want to know if my OS is 64-bit
+os.architecture == '64-bit'
+
+02. I want to get all USB drives in system
+usb = [drives[drive] for drive in drives if drive.type == 'usb']
