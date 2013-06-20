@@ -19,7 +19,9 @@ Extensible Changeset Format alleviates these problems. It contains information a
 *Changeset* is an atomic modification to filesystem tree. It contains *data* about actual modifications of filesystem tree (set of operations in appropriate order) as well as *meta-data* related to VCS that manages this modification (revision number, parents, author, repository id, root path, etc).
 
 === Ideas ===
-The summary header should contain information about tree transformations without details. The will allow to express this information in YAML (or any other format) without parsing the contents. Such headers can be useful to analyze changes _between_ changesets without fully parsing the changeset data.
+*Header*. The summary header should contain information about tree transformations without details. The will allow to express this information in YAML (or any other format) without parsing the contents. Such headers can be useful to analyze changes _between_ changesets without fully parsing the changeset data.
+
+*Operations analysis*. The complexity of the format and implementations depends if operations in changeset are order independent, if they are atomic (can not be interrupted in the middle), symmetric (can be rollbacked safely).
 
 === Use Cases ===
   * 001  - file added
