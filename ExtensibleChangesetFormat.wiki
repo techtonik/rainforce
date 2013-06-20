@@ -18,6 +18,16 @@ Extensible Changeset Format alleviates these problems. It contains information a
 === Contents ===
 *Changeset* is an atomic modification to filesystem tree. It contains *data* about actual modifications of filesystem tree (set of operations in appropriate order) as well as *meta-data* related to VCS that manages this modification (revision number, parents, author, repository id, root path, etc).
 
+=== Ideas ===
+The summary header should contain information about tree transformations without details. The will allow to express this information in YAML (or any other format) without parsing the contents. Such headers can be useful to analyze changes _between_ changesets without fully parsing the changeset data.
+
+=== Use Cases ===
+  * 001  - file added
+  * 002  - file modified
+  * 003  - file removed
+  * 004  - file renamed
+  * 005  - file moved
+
 === Format ===
 Although the first thing that comes to mind after the word "eXtensible" is XML, the format should be plain simple to be easily mapped to JSON or similar representation (i.e. flat XML, without attributes).
 
