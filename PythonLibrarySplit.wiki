@@ -3,16 +3,24 @@
 
 = Introduction =
 
-Being a contributor to a module in Python standard library is unpleasant business. Since its birth Python language was developed as monolithic code base where core interpreter and library always come together. This for a long time was hiding the problem of standard library structure. When doing `import module` in .py file, you couldn't reliably find all source code for this module, related test cases and documentation sources. Without this information it is impossible to contribute a patch, and looking for this information in may take more time that most of us non-core folks can afford.
+Contributing to a module in Python standard library is not as easy as it could be. This means sending patches, improving docs, reporting bugs and cleaning existing ones.
 
-People are not interested in submitting their modules to standard library and those who did quickly lose motivation to support them. Because after module is in stdlib, you can only monitor it as a whole. And there is absolutely no visibility into module development from outside.
+Since its birth Python language was developed as monolithic code base where core interpreter and library always come together. No clear separation from the start led to the problem of unclear standard library structure. Even with Python 3.4 on the streets it is impossible to reliably find all source code, test cases and documentation with sources related to specific module. Without this information it is impossible to contribute a patch, to automate the process, and looking for this information again and again takes more time that most of us non-core folks can afford.
+
+Not only it is hard to find where to contribute, but also to follow the progress. You can only monitor stdlib issues, commits and patches as a whole - there is no separation per module. No wonder people are not interested to submit their modules to standard library and quickly lose motivation to support them.
+
+There is no visibility into module development from outside. From inside you have no control over what's going on with you module issues, patches, commits, comments, docs, reviews etc. This lack of visibility also puts additional burden on tracker maintainers, restricting tracker changes to a limited subset of developers instead of supporting free-for-all edit and decentralized peer review process (like in Trac).
 
 = Python Module Split =
 
-To make it possible to monitor changes in Python standard library on a module level, it is possible to split code history (filter it) using paths related to single module. This requires a mapping from module name to the related paths on filesystem. This also requires that stdlib layout doesn't change, or that there is at least single canonical layout of stdlib and corresponding module files for that map. This layout is Python source code tree.
+To monitor changes in Python standard library on a module level, the source code of stdlib should be split into modules by grouping paths to separate files that constitute one module. It is impossible to do in the filesystem, because current grouping is made per file type - docs, c sources, python sources, and module level grouping requires them to come together. Therefore a repository needs to be added one more dimension to the filesystem - a separate mapping from module name to the related paths.
 
-Splitting code into separate repositories is a *first step* that should also take into account branches for various Python versions. The *second step* is to develop tools that allow to monitor, develop, test and document modules in isolation from the rest of stdlib.
+To make the grouping process automated, the stdlib layout may require some convention about canonical layout of stdlib and corresponding module files. Right now this layout is Python source code tree.
 
-= Proof of Concept ==
+Splitting code by modules is a first step. Next one may require splitting it into separate repositories and tagging them Python release numbers (to make the size of clone smaller). Something should be done to branches for various Python versions.
 
-Working code for integration with tracker and other parts of python.org infrastructure is located at: https://bitbucket.org/techtonik/python-stdlib
+The second step in this concept is to develop tools to monitor, develop, test and document modules in isolation from the rest of stdlib.
+
+= Source Code =
+
+Source to split stdlib into modules, with some utils for tracker is at: https://bitbucket.org/techtonik/python-stdlib
