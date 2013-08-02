@@ -7,11 +7,15 @@ Abundance of version control systems increases barriers for open source collabor
 
 Unfortunately, some VCS provide access to necessary data about their changeset only through low level API. For example, for successful SVN -> HG conversion you need to install SVN bindings for Python, and it can be [http://techtonik.rainforce.org/2010/09/hgsubversion-installing-on-windows.html hard to get these in place] for particular platforms (e.g. Mercurial MSI installation on Windows).
 
-Another problem that while many VCS provide sufficient information about existing changeset, they are not that good at telling about uncommitted changes (for example, `svn diff` won't contain contents of copied or moved files, and `svn st` doesn't show where the file was copied from, etc).
+Changesets exported from VCS often do not provide sufficient information about changes being made ('hg diff --git' won't contain contents of copied or moved files, `hg diff` does not export info about parent revision [2], `svn diff` and standard unified diff format do not show where the file was copied from, etc). VCS usually provide dynamically typed commands to inspect uncommitted changes, but no full info is contained in a single changeset export format.
 
 The above points provide many pitfalls for [http://code.google.com/p/rietveld/ code review] systems, which should extract as much information as possible about changeset, either committed or uncommited.
 
-Extensible Changeset Format alleviates these problems. It contains information about filesystem tree modification not tied to any particular VCS (set of common properties). It also contains VCS specific information about changeset (meta data changes) in forward and backward compatible way. Tools supporting this format, may explicitly ignore properties they don't understand (and add support for them incrementally). Defined sets of properties give VCS authors ability to create interoperable instruments on early stage of development.
+Extensible Changeset Format solves the problem of incomplete information and allows to include new, yet unknown properties that may be vital for some VCS. Other VCS can ignore this.
+
+The essential part of the format is that it cares about *2 dimensions* of changeset data. 1D is file line modifications (traditional unified diff) and 2D is filesystem treee structure modification (file movements, renames, copies, creation of directories and separate properties for them). It also allows to manage changes to additional `properties` to both structure elements.
+
+Information in Extensible Changeset format contains data about filesystem tree modifications not tied to any particular VCS (set of common properties). It also contains VCS specific information about changeset (meta data changes) in forward and backward compatible way. Tools supporting this format may explicitly ignore properties they don't understand (and add support for them incrementally). Defined sets of properties give VCS authors ability to create interoperable instruments on early stage of development.
 
 == Details ==
 
