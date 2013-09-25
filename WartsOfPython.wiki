@@ -15,7 +15,7 @@ Contents:
 
 <wiki:toc />
 
-== open opens text files in system default encoding (Py3k) ==
+== open() on python 3 uses default system encoding ==
 If you use Python 3. If your text file in UTF-8. And if you're reading it without explicit encoding, you're screwed `[`[https://bitbucket.org/techtonik/hexdump/pull-request/1/since-the-input-file-is-a-specific/diff 1]`]`. That's because some user will probably has system with Greek locale, and it will be the encoding that Python will try to open the file in.
 
 *recommendation*: Text files should be opened in universal encoding. UTF-8 is the backward compatible and most popular way.
