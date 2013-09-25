@@ -16,7 +16,7 @@ Contents:
 <wiki:toc />
 
 == open opens text files in system default encoding (Py3k) ==
-If you have a user with system in Greek locale, and your file is in UTF-8, you're screwed [1] if you didn't specify your encoding explicitly. 
+If you use Python 3. If your text file in UTF-8. And if you're reading it without explicit encoding, you're screwed `[`[https://bitbucket.org/techtonik/hexdump/pull-request/1/since-the-input-file-is-a-specific/diff 1]`]`. That's because some user will probably has system with Greek locale, and it will be the encoding that Python will try to open the file in.
 
 *recommendation*: Text files should be opened in universal encoding. UTF-8 is the backward compatible and most popular way.
 
@@ -249,16 +249,16 @@ You can not reliably style HTML produced with reST, and it is considered to be [
 == Links ==
 
 Links to other critique that can be useful for Python refactoring:
- # http://pydanny.blogspot.com/2011/11/redux-python-things-i-dont-like.html
- # http://inventwithpython.com/blog/2012/07/09/16-common-python-runtime-errors/
- # http://packages.python.org/kitchen/unicode-frustrations.html
- # http://zedshaw.com/essays/curing_pythons_neglect.html
+ * http://pydanny.blogspot.com/2011/11/redux-python-things-i-dont-like.html
+ * http://inventwithpython.com/blog/2012/07/09/16-common-python-runtime-errors/
+ * http://packages.python.org/kitchen/unicode-frustrations.html
+ * http://zedshaw.com/essays/curing_pythons_neglect.html
 
- # https://wiki.theory.org/YourLanguageSucks#Python_sucks_because:
+ * https://wiki.theory.org/YourLanguageSucks#Python_sucks_because:
 
 
 Constructive approach to wart invisibility problem from JavaScript guys:
- # http://bonsaiden.github.com/JavaScript-Garden/
+ * http://bonsaiden.github.com/JavaScript-Garden/
 
 
 Prooflinks:
