@@ -2,18 +2,23 @@
 
 http://www.catb.org/jargon/html/W/wart.html
 
-Over years of dealing with warts, I can name a few reasons they appear in Python. Python is a community project, so the primary reason warta exist is a communication failure. There are thousands of Python developers, but a few are able to track what happens on the edge of Python development, needless to say provide exhaustive arguments. And most of them don't have time to defebd their position.
+Over years of dealing with warts, I can name a few reasons they appear in Python. Python is a community project, so the primary reason warta exist is a communication failure. There are thousands of Python developers, but a few are able to track what happens on the edge of Python development, needless to say provide exhaustive arguments. And most of them don't have time to defend their position.
 
-Zen of Python established a good starting point for language evolution, but it is still not enough as it appears. If I was Tim Peters, I could extend Zen in English, but I am not, so here are two missing rules for future language development:
+Zen of Python established a good starting point for language evolution, but it is still not enough as it appears. I wish I could add this too:
 
-1. When dealing with data, put cross-platform behaviour first. Data is not platform dependent by default, so do not accept defaults that are specific to local operating system (see open() function in Python 3.3 that accepts language=None parameter, which implicitly selects unknown encoding)
+  1. When dealing with data, put cross-platform behaviour first. "Data wants to be free", and in 2013 data is not platform dependent by default. If you need to tie you data to encoding of operating system, make it explicitly.  so do not accept defaults that are specific to local operating system (see open() function in Python 3.3 that accepts language=None parameter, which implicitly selects unknown encoding)
 
-2. When making core function API make sure that it does one thing. A lessons to study - subprocess.Popen and Python 3.3 open() encoding selection logic.
+  2. When making core function API make sure that it does one thing. A lessons to study - subprocess.Popen and Python 3.3 open() encoding selection logic.
 
 
 Contents:
 
 <wiki:toc />
+
+== open opens text files in system default encoding (Py3k) ==
+If you have a user with system in Greek locale, and your file is in UTF-8, you're screwed [1] if you didn't specify your encoding explicitly. 
+
+*recommendation*: Text files should be opened in universal encoding. UTF-8 is the backward compatible and most popular way.
 
 == stdout buffering ==
 Python is a victim of premature optimization.
@@ -254,3 +259,7 @@ Links to other critique that can be useful for Python refactoring:
 
 Constructive approach to wart invisibility problem from JavaScript guys:
  # http://bonsaiden.github.com/JavaScript-Garden/
+
+
+Prooflinks:
+ 1. https://bitbucket.org/techtonik/hexdump/pull-request/1/since-the-input-file-is-a-specific/diff
