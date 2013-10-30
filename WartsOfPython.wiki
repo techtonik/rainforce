@@ -203,6 +203,15 @@ But `os.path.split('foo:bar')` on Windows gives `('', 'foo:bar')`.
 
 Summary: It would be nice to get 'import path' module with predictable cross-platform functions and notes about platform differences.
 
+=== os.path.join counter-intuitive behavior ===
+{{{
+>>> os.path.join('/static', '/styles/largestyles.css')
+'/styles/largestyles.css'
+}}}
+This is counter-intuitive, because `/static + /static/largestyles.css` does everything right.
+
+Summary: wanted 'import path' module with behavior that is expected from join operation.
+
 === re.sub discrepancy between matching and substitution groups ===
 
 `\0` doesn't work in Python as a whole matched regexp in substitution string for `re.sub` and friends, but `.group(0)` contains the whole match as expected. http://bugs.python.org/issue17426 This inconsistency is unlikely to be fixed thanks to backward compatibility concerns only and therefore is a wart.
