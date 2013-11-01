@@ -27,7 +27,12 @@ These are wishes or rules. Because CHAOS is highly abstract, it may be impossibl
 
 == Users ==
 
-When I work on a multiuser system, I wish that when I type 'users' in `console`, I get a list of all users that I can see.
+For multiuser system there should be 'user' command in console to get list of all users, add new and add user to group:
+{{{
+usage: user list [options]      - list all human users accounts
+       user add <name>          - add hew user account to system
+       user add <name> <group>  - add user to group
+}}}
 
 Update 2013-03: Linux `users` command shows users who are currently online. It is worthy to add `users --all` option to see all users who are present on this system. Extending the idea - the CHAOS system may be the point of entry for humans into the communication cloud, so the system 'users' may be replaced by better analogy, such as system 'actor, account, robot, entity, ghost, ...'. Ghost is probably the best idea as you never know if there is a real man behind the terminal executing the program.
 <wiki:comment>
