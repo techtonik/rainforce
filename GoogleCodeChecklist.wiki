@@ -4,12 +4,13 @@
 === Make your project accessible ===
 
  * [ ] Create a Google Group for feedback and code reviews
-<wiki:comment>not mailing list, because
-1. user will need yet another password / annoying registration
-2. not everybody wants to subscribe
-3. lists usually don't have convenient search and web archives
-</wiki:comment>
    * [ ] Enable code highlighting in Group Settings -> Information -> Web view customization
+
+   <wiki:comment>group and not mailing list, because
+   1. user will need yet another password / annoying registration
+   2. not everybody wants to subscribe
+   3. lists usually don't have convenient search and web archives
+   </wiki:comment>
 
  * Administer -> Source
    * [ ] Enable code reviews
