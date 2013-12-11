@@ -37,6 +37,8 @@ people need to ask question about your code
  * [ ] Document your architecture, see examples:
    * http://mediagoblin.readthedocs.org/en/latest/devel/codebase.html
 
+ * [ ] [https://groups.google.com/forum/#!topic/rainforce/WblQP9_HyK8 Add +1 buttons] to project pages <g:plusone size="medium"></g:plusone>
+
 === Be inclusive ===
 
  * [ ] Add a label for issues what current project members are unlikely to take - HelpNeeded, Priority-No, whatever
