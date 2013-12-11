@@ -5,12 +5,13 @@
 
  * [ ] Create a Google Group for feedback and code reviews
    * [ ] Enable code highlighting in Group Settings. Information -> Web view customization
-   * [ ] Ensure that group members can post by checking Permissions -> Basic permissions <br/> (this was the source of at least [https://groups.google.com/d/topic/rainforce/I96rpZ2Jl84/discussion one epic fail])
+   * [ ] Ensure that group members can post by checking Permissions -> Basic permissions
+     * (this was the source of at least [https://groups.google.com/d/topic/rainforce/I96rpZ2Jl84/discussion one epic fail])
    * [ ] Check Posting permissions there
      * [ ] Ability to attach files can be useful for screenshots
    * [ ] Access permissions may allow members to see each other
    * [ ] Set Settings -> Email options -> Display the URL of the posted message.
-     (convenient when you want to read/reply from the web)
+     * (convenient when you want to read/reply from the web)
 
    <wiki:comment>group and not mailing list, because
    1. user will need yet another password / annoying registration
@@ -34,7 +35,7 @@ people need to ask question about your code
  * [ ] Make sure there is a clear answer "what your project does?"
 
  * [ ] Document your architecture, see examples:
-   * http://docs.mediagoblin.org/codebase.html
+   * http://mediagoblin.readthedocs.org/en/latest/devel/codebase.html
 
 === Be inclusive ===
 
