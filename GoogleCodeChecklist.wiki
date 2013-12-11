@@ -5,6 +5,7 @@
 
  * [ ] Create a Google Group for feedback and code reviews
    * [ ] Enable code highlighting in Group Settings -> Information -> Web view customization
+   * [ ] Ensure that group members can post by checking Permissions -> Basic permissions (this was the source of at least [https://groups.google.com/d/topic/rainforce/I96rpZ2Jl84/discussion one epic fail])
 
    <wiki:comment>group and not mailing list, because
    1. user will need yet another password / annoying registration
