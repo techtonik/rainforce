@@ -37,7 +37,7 @@ people need to ask question about your code
  * [ ] Document your architecture, see examples:
    * http://mediagoblin.readthedocs.org/en/latest/devel/codebase.html
 
- * [ ] [https://groups.google.com/forum/#!topic/rainforce/WblQP9_HyK8 Add +1 buttons] to project pages <g:plusone size="medium"></g:plusone>
+ * [ ] [https://groups.google.com/forum/#!topic/rainforce/WblQP9_HyK8 Add] <g:plusone size="medium"></g:plusone> button to Google Code project page and valuable content page with `<g:plusone size="medium"></g:plusone>` wiki markup.
 
 === Be inclusive ===
 
