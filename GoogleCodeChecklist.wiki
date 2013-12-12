@@ -37,10 +37,14 @@ people need to ask question about your code
  * [ ] Document your architecture, see examples:
    * http://mediagoblin.readthedocs.org/en/latest/devel/codebase.html
 
+ * [ ] Write progress reports if you can. They are most interesting for returning users. For example, see [http://ufoai.org/wiki/News UFO:AI] and [http://www.freedroid.org/news/ FreedroidRPG]
+
+=== Make it inclusive ===
+
+ * [ ] Add a label for issues what current project members are unlikely to take - HelpNeeded, Priority-No, Priority-Low, whatever
+ * [ ] Add Easy label for issues that total beginners can help with ([http://openhatch.org/ OpenHatch] project aggregates such tasks across different projects)
+
+=== Make it visible ===
+
  * [ ] [https://groups.google.com/forum/#!topic/rainforce/WblQP9_HyK8 Add +1 button] to Google Code project page and wiki pages by inserting `<g:plusone size="medium"></g:plusone>` string.
    * <g:plusone size="medium"></g:plusone>
-
-=== Be inclusive ===
-
- * [ ] Add a label for issues what current project members are unlikely to take - HelpNeeded, Priority-No, whatever
- * [ ] Add Easy tasks to tracker for beginners
