@@ -69,3 +69,8 @@ os.architecture == '64-bit'
 
 02. I want to get all USB drives in system <br>
 usb = [drives[drive] for drive in drives if drive.type == 'usb']
+
+=== More info ===
+
+* http://www.linuxintro.org/wiki/Hwinfo
+* http://stackoverflow.com/questions/13814428/python-linux-dmidecode-how-to-obtain-hw-info-by-parsing
