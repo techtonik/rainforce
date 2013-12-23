@@ -72,5 +72,5 @@ usb = [drives[drive] for drive in drives if drive.type == 'usb']
 
 === More info ===
 
-* http://www.linuxintro.org/wiki/Hwinfo
-* http://stackoverflow.com/questions/13814428/python-linux-dmidecode-how-to-obtain-hw-info-by-parsing
+  * http://www.linuxintro.org/wiki/Hwinfo
+  * http://stackoverflow.com/questions/13814428/python-linux-dmidecode-how-to-obtain-hw-info-by-parsing
