@@ -63,3 +63,5 @@ Advanced actions require many steps. While it is possible to hardcode them in sc
 = Development Process =
 
 CHAOS development is all about decreasing entropy. Because the starting point is that everything is in chaos.
+
+There is no reinventing the wheel. CHAOS is distributed through a virus, which infects existing systems. CHAOS distributes by itself. =)
