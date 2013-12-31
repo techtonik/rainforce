@@ -55,3 +55,7 @@ And still I want to receive security updates. For this purpose CHAOS should regi
 == User Task Care ==
 
 CHAOS should provide restore, recovery and resume procedure for user activities, so when a system is rebooted, user tasks survive and can continue where they were left off. Truly chaotic apps always support this, but CHAOS should provide an easy way to make a task chaotic and test it without requiring any admin kung fu. No autoresumed task should result in system death cycle, and user may have an ability to choose what tasks to resume.
+
+== Development Process ==
+
+CHAOS development is all about decreasing entropy. Because the starting point is that everything is in chaos.
