@@ -56,6 +56,10 @@ And still I want to receive security updates. For this purpose CHAOS should regi
 
 CHAOS should provide restore, recovery and resume procedure for user activities, so when a system is rebooted, user tasks survive and can continue where they were left off. Truly chaotic apps always support this, but CHAOS should provide an easy way to make a task chaotic and test it without requiring any admin kung fu. No autoresumed task should result in system death cycle, and user may have an ability to choose what tasks to resume.
 
-== Development Process ==
+== Action Queue / Chain ==
+
+Advanced actions require many steps. While it is possible to hardcode them in scripts, sometimes you need flexibility. To divert action plan at every step, to control exceptional situations and just run this plan in manual mode, every scripts can be converted into queue of actions. The more upfront analysis - the better.
+
+= Development Process =
 
 CHAOS development is all about decreasing entropy. Because the starting point is that everything is in chaos.
