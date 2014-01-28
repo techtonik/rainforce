@@ -2,7 +2,7 @@
 
 http://www.catb.org/jargon/html/W/wart.html
 
-=== Why Python is with warts? ===
+== Why Python is with warts? ==
 
 Over years of dealing with warts, I can name a few reasons why they appear in Python. Python is a community project, so the primary reason is a communication failure. From thousands of People using Python few are able to track what happens with Python development. Even less have time and skills needed to provide and defend right arguments.
 
@@ -68,7 +68,7 @@ TODO - Python 2, OS X
 TODO - Python 3, Windows
 TODO - Python 3, Linux
 TODO - Python 3, OS X
-}}{
+}}}
 
 = Everything Else =
 == mutable defaults trap ==
