@@ -2,14 +2,17 @@
 
 http://www.catb.org/jargon/html/W/wart.html
 
-Over years of dealing with warts, I can name a few reasons they appear in Python. Python is a community project, so the primary reason warta exist is a communication failure. There are thousands of Python developers, but a few are able to track what happens on the edge of Python development, needless to say provide exhaustive arguments. And most of them don't have time to defend their position.
+=== Why Python is with warts? ===
 
-Zen of Python established a good starting point for language evolution, but it is still not enough as it appears. I wish I could add this too:
+Over years of dealing with warts, I can name a few reasons why they appear in Python. Python is a community project, so the primary reason is a communication failure. From thousands of People using Python few are able to track what happens with Python development. Even less have time and skills needed to provide and defend right arguments.
 
-  1. When dealing with data, put cross-platform behaviour first. "Data wants to be free", and in 2013 data is not platform dependent by default. If you need to tie you data to encoding of operating system, make it explicitly.  so do not accept defaults that are specific to local operating system (see open() function in Python 3.3 that accepts language=None parameter, which implicitly selects unknown encoding)
+Zen of Python is a very good thing to set the rules for language evolution, but it is enough when we go deeper into specifics of user experience problems. I wish it could be extended to include this:
+
+  1. User data should be platform independent, so when dealing with it, cross-platform behaviour should be put first. If you need to tie your data to encoding of operating system, make it explicitly, do not accept defaults that are specific to local operating system (see open() function in Python 3.3 that accepts language=None parameter, which implicitly selects unknown encoding)
 
   2. When making core function API make sure that it does one thing. A lessons to study - subprocess.Popen and Python 3.3 open() encoding selection logic.
 
+==
 
 Contents:
 
