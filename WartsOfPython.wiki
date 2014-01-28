@@ -12,12 +12,11 @@ Zen of Python is a very good thing to set the rules for language evolution, but 
 
   2. When making core function API make sure that it does one thing. A lessons to study - subprocess.Popen and Python 3.3 open() encoding selection logic.
 
-==
-
 Contents:
 
 <wiki:toc />
 
+= Input/Output Issues =
 == open() on python 3 uses default system encoding ==
 If you use Python 3. If your text file in UTF-8. And if you're reading it without explicit encoding, you're screwed `[`[https://bitbucket.org/techtonik/hexdump/pull-request/1/since-the-input-file-is-a-specific/diff 1]`]`. That's because some user will probably has system with Greek locale, and it will be the encoding that Python will try to open the file in.
 
@@ -40,6 +39,38 @@ In this code phrases "get" and "onscreen" appear only after the sleep operation 
 
 New Python users are not aware of various buffering magic, so this issue comes to be very confusing for them. The question that print without newline doesn't work is [http://stackoverflow.com/questions/tagged/python?page=1&sort=votes&pagesize=50 45th from top 100] on StackOverflow. Note that if output is redirected to a file or a socket, new lines won't cause the buffer to flush. You need to flush output stream explicitly if you want the output from Python script to appear ASAP.
 
+== stdout is in text mode by default ==
+
+Python produces broken binary data if you just write them (or print) to stdout.
+
+Python 2, Windows:
+{{{
+> python -c "import sys; sys.stdout.write('_\n_')" > 2
+> python -c "print repr(open('2', 'rb').read())"
+'_\r\n_'
+}}}
+
+To fix it, you need to use hacks:
+Python 2, Windows:
+{{{
+import sys
+
+if sys.platform == "win32":
+  import os, msvcrt
+  msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
+
+sys.stdout.write('_\n_')
+}}}
+
+{{{
+TODO - Python 2, Linux
+TODO - Python 2, OS X
+TODO - Python 3, Windows
+TODO - Python 3, Linux
+TODO - Python 3, OS X
+}}{
+
+= Everything Else =
 == mutable defaults trap ==
 {{{
 def foo(bar=[]):
