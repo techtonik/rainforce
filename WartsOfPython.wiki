@@ -6,9 +6,9 @@ http://www.catb.org/jargon/html/W/wart.html
 
 Over years of dealing with warts, I can name a few reasons why they appear in Python. Python is a community project, so the primary reason is a communication failure. From thousands of People using Python few are able to track what happens with Python development. Even less have time and skills needed to provide and defend right arguments.
 
-Zen of Python is a very good thing to set the rules for language evolution, but it is enough when we go deeper into specifics of user experience problems. I wish it could be extended to include this:
+Zen of Python is a very good thing to set the rules for language evolution, but insufficient when we go deeper into specifics of user experience problems. I wish it could be extended to include this:
 
-  1. User data should be platform independent, so when dealing with it, cross-platform behaviour should be put first. If you need to tie your data to encoding of operating system, make it explicitly, do not accept defaults that are specific to local operating system (see open() function in Python 3.3 that accepts language=None parameter, which implicitly selects unknown encoding)
+  1. User data should be platform independent, so when dealing with it, cross-platform behavior should be put first. If data needs to be handled in operating system specific way, this should be explicit (see open() on Python 3 wart below).
 
   2. When making core function API make sure that it does one thing. A lessons to study - subprocess.Popen and Python 3.3 open() encoding selection logic.
 
