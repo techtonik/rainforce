@@ -70,6 +70,11 @@ TODO - Python 3, Linux
 TODO - Python 3, OS X
 }}}
 
+== Python 2 misses non-ASCII filenames ==
+
+On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument, you will end up with filename composed of question marks for non-ASCII local symbols. Filenames that you won't be able to open.
+
+
 = Everything Else =
 == mutable defaults trap ==
 {{{
