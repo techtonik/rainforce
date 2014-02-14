@@ -227,6 +227,93 @@ _There should be one-- and preferably only one --obvious way to do it._
 '0:00:11.475000'
 }}}
 
+== scope of Python - global and local variables ==
+=== flat scope wart ===
+{{{
+ora = 'cool'
+def er():
+    print ora,
+er()
+print ora
+}}}
+This prints `cool cool`.
+
+{{{
+ora = 'cool'
+def er():
+    ora = 'cept'
+    print ora,
+er()
+print ora
+}}}
+This prints `cept cool`. Hopefully that's clear - inside `function scope` global variable is overridden by local variable.
+
+{{{
+ora = 'cool'
+def er():
+    global ora
+    ora = 'cept'
+    print ora,
+er()
+print ora
+}}}
+This prints `cept cept`. Hopefully that's also clear.
+
+Now with new nested function.
+{{{
+ora = 'cool'
+def er():
+    ora = 'cepti'
+    def ee():
+        print ora, # prints first
+    ee()
+    print ora,     # second
+er()
+print ora          # last
+}}}
+`cepti cepti cool`
+
+{{{
+ora = 'cool'
+def er():
+    ora = 'cepti'
+    def ee():
+        ora = 'de'
+        print ora, # prints first
+    ee()
+    print ora,     # second
+er()
+print ora          # last
+}}}
+`de cepti cool` - all fine.
+
+{{{
+ora = 'cool'
+def er():
+    ora = 'cepti'
+    def ee():
+        global ora
+        ora = 'de'
+        print ora, # prints first
+    ee()
+    print ora,     # second
+er()
+print ora          # last
+}}}
+`de cepti de`.
+
+The wart of Python 2 is that there is no way you can modify the `cepti` part in the middle scope (without hacks). In Python 3 there is a `nonlocal` keyword for that.
+
+But that's not important, because it is rarely used. It is important to completely understand the scoping rules to get the problem with `execfile()` right.
+
+=== execfile() from Python 2.x ==
+
+`execfile()` is very useful for custom scripting in Python. You set all imports, environment and settings and then execute scripts in this namespace, so the script won't have to import anything itself. This is how SCons scripts works, for example.
+
+In comparison to import `execfile()` doesn't create new module.
+
+
+
 == Standard library glitches ==
 
 === os.path.split has platform dependent behavior ===
