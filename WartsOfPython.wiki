@@ -227,8 +227,8 @@ _There should be one-- and preferably only one --obvious way to do it._
 '0:00:11.475000'
 }}}
 
-== scope of Python - global and local variables ==
-=== flat scope wart ===
+== scopes of Python - global and local variables ==
+=== inaccessible intermediate scope in Python 2===
 {{{
 ora = 'cool'
 def er():
