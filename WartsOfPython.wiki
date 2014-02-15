@@ -306,12 +306,54 @@ The wart of Python 2 is that there is no way you can modify the `cepti` part in 
 
 But that's not important, because it is rarely used. It is important to completely understand the scoping rules to get the problem with `execfile()` right.
 
-=== execfile() from Python 2.x ==
+=== flawed execfile() default in Python 2 ==
 
-`execfile()` is very useful for custom scripting in Python. You set all imports, environment and settings and then execute scripts in this namespace, so the script won't have to import anything itself. This is how SCons scripts works, for example.
+`execfile()` is useful for custom scripting in Python. You set imports and environment and execute script there. This is how SCons and similar tools work. In comparison to `import` `execfile()` doesn't create new module.
 
-In comparison to import `execfile()` doesn't create new module.
+demo.py
+{{{
+ora = 'cool'
+def er():
+    print ora
+er()
+}}}
 
+demorun.py
+{{{
+execfile('demo.py')
+}}}
+cool
+
+Changing demorun.py
+{{{
+def run():
+  execfile('demo.py')
+run()
+}}}
+{{{
+Traceback (most recent call last):
+  File "demorun.py", line 3, in <module>
+    run()
+  File "demorun.py", line 2, in run
+    execfile('demo.py')
+  File "demo.py", line 4, in <module>
+    er()
+  File "demo.py", line 3, in er
+    print ora
+NameError: global name 'ora' is not defined
+}}}
+Weird, eh?
+
+Changing demorun.py again
+{{{
+ora = 'cepticool'
+def run():
+  execfile('demo.py')
+run()
+}}}
+cepticool
+
+I don't know about you, but I am seriously confused when I find such gems. What happens here?
 
 
 == Standard library glitches ==
