@@ -353,8 +353,9 @@ run()
 }}}
 cepticool
 
-I don't know about you, but I am seriously confused when I find such gems. What happens here?
+I was totally confused when I first encountered this behavior. It was not as clear as in this example. The problem is that you expect function behavior to be *position independent* and with `execfile()` it is not true. It is indirectly explained in [http://docs.python.org/2/library/functions.html#execfile documentation] on its arguments. In addition to `filename`, `execfile()` accepts `globals` and `locals` arguments.  `If both dictionaries are omitted, the expression is executed in the environment where execfile is called.`
 
+There are more confusing references to globals/locals in docs, but the point is that `execfile()` basically inserts Python code in the place where it is called from. Therefore if you execute the `demo.py` inside of the function, ...
 
 == Standard library glitches ==
 
