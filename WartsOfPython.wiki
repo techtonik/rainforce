@@ -306,7 +306,7 @@ The wart of Python 2 is that there is no way you can modify the `cepti` part in 
 
 But that's not important, because it is rarely used. It is important to completely understand the scoping rules to get the problem with `execfile()` right.
 
-=== flawed execfile() default in Python 2 ==
+=== cryptic execfile() behavior in Python 2 ==
 
 `execfile()` is useful for custom scripting in Python. You set imports and environment and execute script there. This is how SCons and similar tools work. In comparison to `import` `execfile()` doesn't create new module.
 
@@ -355,7 +355,13 @@ cepticool
 
 I was totally confused when I first encountered this behavior. It was not as clear as in this example. The problem is that you expect function behavior to be *position independent* and with `execfile()` it is not true. It is indirectly explained in [http://docs.python.org/2/library/functions.html#execfile documentation] on its arguments. In addition to `filename`, `execfile()` accepts `globals` and `locals` arguments.  `If both dictionaries are omitted, the expression is executed in the environment where execfile is called.`
 
-There are more confusing references to globals/locals in docs, but the point is that `execfile()` basically inserts Python code in the place where it is called from. Therefore if you execute the `demo.py` inside of the function, ...
+There are more confusing references to globals/locals in docs, but the point is that `execfile()` basically inserts Python code in the place where it is called from. Therefore if you execute the `demo.py` inside of the function in demorun.py, it will inherit globals and locals of the function but will lose their own.
+
+Documentation just needs to say that it `execfile` pastes lines of code from file at the place of invocation. If you need to isolate execution, it is done by passing globals and locals arguments. But here is another problem `If two separate objects are passed as globals and locals, the code will be executed as if it were embedded in a class definition`. I don't know what is the effect if embed Python module in a class definition. Anybody? The docs probably say that you need to be smart to use it.
+
+There is another tip that can help with my particular use case. `Remember that at module level, globals and locals are the same dictionary.` I feel like a real Unix hacker now - that probably relates to the fact that executed file is a module and when we execute it, the code inside is executed on a module level. Seems obvious, but didn't work for me. So, the solution to fix execfile() behavior to be position independent is to pass it an empty dictionary.
+
+*recommendation*: simplify `execfile` description.
 
 == Standard library glitches ==
 
