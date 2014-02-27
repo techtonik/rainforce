@@ -437,6 +437,7 @@ Links to other critique that can be useful for Python refactoring:
  * http://inventwithpython.com/blog/2012/07/09/16-common-python-runtime-errors/
  * http://packages.python.org/kitchen/unicode-frustrations.html
  * http://zedshaw.com/essays/curing_pythons_neglect.html
+ * http://programming.oreilly.com/2013/10/dead-batteries-included.html
 
  * https://wiki.theory.org/YourLanguageSucks#Python_sucks_because:
 
