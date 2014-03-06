@@ -46,3 +46,4 @@ speaking about atomic modification to filesystem tree, unfortunately, not many f
 == References ==
  # [http://svn.haxx.se/dev/archive-2010-08/0691.shtml Proposal to Subversion developers]
  # [http://bz.selenic.com/show_bug.cgi?id=1268 Mercurial diff should include the number of parent revision]
+ # [http://mercurial.selenic.com/wiki/BundleFormat2 Mercurial HG19 Bunder Format]
