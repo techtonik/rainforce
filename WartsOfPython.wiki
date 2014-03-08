@@ -76,6 +76,23 @@ On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument,
 
 
 = Everything Else =
+
+== no reliable print/repr function in Python 3 ==
+
+`print` in Python 3 got obligatory (), which is a hindrance, because entering parentheses uses inconvenient shift keypress. But that's nothing compared with the absence of reliable and predictable `print` function for dumping contents of variables, because in Python 3 this is not guaranteed to succeed:
+{{{
+print(repr(variable))
+}}}
+
+There is a chance that you will get something like:
+{{{
+'charmap' codec can't encode character '\xb6' in position 1851: character maps to <undefined>
+}}}
+
+Especially if `variable` is a complex structure and may use different encodings inside. And at the time of writing this text I don't know what hacks is needed for a workaround.
+
+*recommendation*: `repr()` in Python 3 should always return quoted structure.
+
 == mutable defaults trap ==
 {{{
 def foo(bar=[]):
