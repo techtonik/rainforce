@@ -1,0 +1,20 @@
+#summary RVA - Rainforce Visualization API
+#labels Speccy
+
+Version 0.1
+
+== The name of this speccy ==
+
+No API is perfect, and so this one. To distinguish this Visualization API from others it could be referenced as `rainforce visualization api` or RVA for short.
+
+== RVA Level 0 ==
+
+Apps supporting this level receive input from stdin. That's it.
+
+Example:
+{{{
+    $ runtests | visuapp
+}}}
+The command redirects output from some `runtests` command to some `visuapp` visualizer. It is the role of visualizer to understand if the data makes sense and represent the data.
+
+Level 0 doesn't specify how visualizer should react if the data doesn't make any sense. But visualizer MAY return code 220 if it failed to parse the input. Ideally `visuapp` could forward non-zero return codes from the process it is connected to through the pipe, but I doubt that's possible.
