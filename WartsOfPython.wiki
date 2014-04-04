@@ -323,7 +323,11 @@ The wart of Python 2 is that there is no way you can modify the `cepti` part in 
 
 But that's not important, because it is rarely used. It is important to completely understand the scoping rules to get the problem with `execfile()` right.
 
-=== cryptic execfile() behavior in Python 2 ==
+=== confusing exec vs eval ===
+
+Python has both eval() and exec() functions. Documentation on both specifies effects of combining different arguments without a clear purpose or a big picture, making the doc useless and confusing. Usually eval is used to execute code in a string or variable in-place, like if you've pasted it at this location. So it was easy to assume that exec should be different. I assumed that it was creating a isolated namespace and executed the code there. But by default, it is not true and it just executes code in-place.
+
+=== cryptic execfile() behavior in Python 2 ===
 
 `execfile()` is useful for custom scripting in Python. You set imports and environment and execute script there. This is how SCons and similar tools work. In comparison to `import` `execfile()` doesn't create new module.
 
