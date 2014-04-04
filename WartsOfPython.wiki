@@ -77,6 +77,10 @@ On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument,
 
 = Everything Else =
 
+== __file__ is not absolute in Python < 3.4 ==
+
+There is no way to get absolute filename of the script being executed if [https://docs.python.org/3.4/whatsnew/3.4.html#other-language-changes __file__ is relative] and os.chdir happened. The recommendation is to follow [http://www.php.net/manual/en/language.constants.predefined.php PHP __FILE__] behaviour - absolute filename with symlinks resolved.
+
 == no reliable print/repr function in Python 3 ==
 
 `print` in Python 3 got obligatory (), which is a hindrance, because entering parentheses uses inconvenient shift keypress. But that's nothing compared with the absence of reliable and predictable `print` function for dumping contents of variables, because in Python 3 this is not guaranteed to succeed:
