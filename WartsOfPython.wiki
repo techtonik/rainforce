@@ -1,16 +1,52 @@
 #summary Won't fix issues that make Python less pythonic.
 
-http://www.catb.org/jargon/html/W/wart.html
+  * UPD 201406: rewrote intro, add subpackaging issue
 
-== Why Python is with warts? ==
 
-Over years of dealing with warts, I can name a few reasons why they appear in Python. Python is a community project, so the primary reason is a communication failure. From thousands of People using Python few are able to track what happens with Python development. Even less have time and skills needed to provide and defend right arguments.
+ wart: n.
+  A small, crocky feature that sticks out of an otherwise clean design. Something conspicuous for localized ugliness, especially a special-case exception to a general rule.
 
-Zen of Python is a very good thing to set the rules for language evolution, but insufficient when we go deeper into specifics of user experience problems. I wish it could be extended to include this:
+ http://www.catb.org/jargon/html/W/wart.html
 
-  1. User data should be platform independent, so when dealing with it, cross-platform behavior should be put first. If data needs to be handled in operating system specific way, this should be explicit (see open() on Python 3 wart below).
+== What this page is about? ==
 
-  2. When making core function API make sure that it does one thing. A lessons to study - subprocess.Popen and Python 3.3 open() encoding selection logic.
+This page is solely about usability and UX of Python language interpreter, its native tools and everything that users usually download (or advised to download) from http://python.org/ including `pip` and `standard library`.
+
+This page is also aware that `unix is for hackers` and meant to provide a sane balance to avoid http://www.catb.org/jargon/html/U/user-obsequious.html syndrome.
+
+== What this page is not? ==
+
+This page is not about core Python language itself. It is not about Python syntax, keywords, indentation etc. Python is not perfect in this regard, but it provides a good basis on this level to concentrate on more high level usability concepts.
+
+== Why warts and why they appear? ==
+
+You can name them "usability issues" if you like, but the meaning won't change.
+
+I am obsessed with usability. Shaving yaks is my hobby, my free time, the way of thinking, and the source of constant conflicts with getting job done. Usual stuff.. I get punished, depressed, out of money, but there is nothing else I can do. I tried.. and failed. So this a summary of my experience. Some of these notes are really-really-really expensive if we take an idealistic hourly rate of 20$/hour, but they don't have a sponsor, so I just put them here. Well, actually I had a lot of hope in getting a lot of beer in exchange for this stuff, but evil doctors spoiled my plan and now this info is worthless.
+
+Why I did this? Every time I shave a yak, I think that Earth is full of people and that right at this moment somebody shaves a different yak. I continue to think about this and wonder - what if she (or he) shaves exactly the same yak as I do.. How strange.. It is even possible that she or he shaves exactly the same place!.. Weird..
+
+Then my practical part pops up and I can start to think about this more - why we are shave yaks again and again, wasting time on exactly the same parts, distracted from real purpose. Even NASA engineers have to use Python, and they shave yaks too. Aren't they supposed to develop and show us wonders of deep space before the show stops? Why are they shaving yaks?? The answer is simple - because everybody do.
+
+And how does it relate to warts? Well, shaving yaks is a wart-driven process. People like to scratch their own itches, because it is impossible, but you can not do much about warts, so the only way is to live with them. And that's wrong. Even if it is impossible to get rid of wart, the genetics and causes should be analyzed to avoid spreading them in the future.
+
+
+So, how do warts appear in community projects like Python. I can name a few reasons. First and primary reason is community communication failure. There are thousands people using Python. Few are able to track what happens with Python development. Even less have time and skills to monitor, filter and contribute to the communication alone. Python communications doesn't scale, they are not focused. UX study of ML comminication is a sad business, because there is not much you can improve there.
+
+Let me say one good thing or else it will look all too gloomy. Zen of Python is awesome! This is a good hack to make a lot of people be aware of best principles used in language engineering. Well, that's obvious. The awesome part is that Zen changes How people think about language without lengthy and boring notations (see user-obsequious above).
+
+So, let's start with Zen of Python as very good thing that sets rules for language evolution and see why it is insufficient on higher level.
+
+  1. We live in internet era, so we need to care about data. Not only language itself, but the defaults. They are important. We are living in internet - there is no Linux, Windows. Internet is cross-platform, its users have taught that it is good when data is platform independent. Unfortunately, Python doesn't have this principle, and core unix hackers who write CPython in C still threat data as being platform-dependent, so such warts appear even in brand new Python 3 (see open() wart below). In era of diverse and interconnected systems, if data needs to be handled in operating system specific way, this should be explicit.
+
+  2. All complex systems (and ecosystems) are based on feedback. Python community process exists to communicate feedback, but there is no mechanism to raise importance of some issues, and deliver issues to the interested subgroup of people. 
+
+  3. No work with mistakes. No retrospective analysis of the issues. It is hard to make this is distributed manner, but the real problem is that it is not in current development culture, so it is impossible to concentrate. For example, core API calls like subprocess.Popen do a lot of things at once, and the same thing repeated with Python 3.3 open() encoding selection logic.
+
+  4. No visibility into other usage scenarios of some feature. Smart are all bought out, so the good strategy is it to assume that majority of people who can help are not so skilled. There are many things that can be done, but one of the most important is making the list of these things and make sure that this list is visible, and fun to work with. I am not talking about OpenHatch - it is only a part of solution and not the perfect one. In perfect solution you have a gameplay. And if a person wants to contribute - every personal experience is counted and analyzed.
+
+So, the answer to the question `why warts appear?` is `because nobody guards against them`. Hopefully these notes could help someone draft a strategy to deal with warts. At least this list is something to start from.
+
 
 Contents:
 
@@ -455,7 +491,21 @@ second list
 
 You can not reliably style HTML produced with reST, and it is considered to be [expected behavior http://sourceforge.net/p/docutils/bugs/178/].
 
-== Links ==
+= Packaging =
+== Subpackage management it a disaster ==
+
+Suppose I have a plugin for Spyder IDE. Suppose I want all plugins to be isolated in package `spyder.plugins`. Now how can I distribute `spyder.plugins.myplug` independently of Spyder IDE, so that it will land into appropriate folder with no additional hacks?
+
+I need:
+
+  #. install files from multiple packages into single directory
+  #. no file overwrites from different package on unpack (not by default at least)
+  #. full control over which packages contributes files to certain directory
+
+Basically, I need package control on *generic file level* - not on the *directory level + hacks*. TBD: describe current situation
+
+
+= Links =
 
 Links to other critique that can be useful for Python refactoring:
  * http://pydanny.blogspot.com/2011/11/redux-python-things-i-dont-like.html
