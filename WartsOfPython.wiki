@@ -1,5 +1,6 @@
 #summary Won't fix issues that make Python less pythonic.
 
+  * UPD 201406: add datetime.timedelta formatting issue
   * UPD 201406: rewrote intro, add subpackaging issue
 
 
@@ -257,7 +258,7 @@ The argument above can be list only for the sake of quoting it properly (if need
 
   * .communicate() is recommended way to avoid deadlocks, but you can not split output into two streams to make it appear on screen during processing and stored in the output variable
 
-== Measuring run time ==
+== measure run time - too many ways to measure ==
 
 _There should be one-- and preferably only one --obvious way to do it._
 {{{
@@ -283,6 +284,17 @@ _There should be one-- and preferably only one --obvious way to do it._
 >>> timer.get('newtimername')
 '0:00:11.475000'
 }}}
+
+== measure run time - timedelta formatting inconsistency ==
+
+{{{
+>>> str(d.timedelta(seconds=666.0))
+'0:11:06'
+>>> str(d.timedelta(seconds=666.1))
+'0:11:06.100000'
+}}}
+
+The wart is that low level API should operate on argument type, not on argument value. If API followed this pattern, you could use simple subindex `[:-4]` to format time to 2 digit precision.
 
 == scopes of Python - global and local variables ==
 === inaccessible intermediate scope in Python 2===
