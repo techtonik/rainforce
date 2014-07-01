@@ -296,6 +296,24 @@ _There should be one-- and preferably only one --obvious way to do it._
 
 The wart is that low level API should operate on argument type, not on argument value. If API followed this pattern, you could use simple subindex `[:-4]` to format time to 2 digit precision.
 
+== measure run time - no obvious way to format time in seconds ==
+
+This is not intuitive:
+{{{
+>>> import time
+>>> time.strftime("%H:%M:%S", time.gmtime(666))
+'00:11:06'
+}}}
+
+*What can be done?*
+{{{
+>>> import time
+>>> time.format('{{hours}}:{{minutes}}:{{seconds}}', 1090)
+'00:18:10'
+>>> time.format('%H:%M:%S', 1090)
+'00:18:10'
+}}}
+
 == scopes of Python - global and local variables ==
 === inaccessible intermediate scope in Python 2===
 {{{
