@@ -1,6 +1,6 @@
 #summary Won't fix issues that make Python less pythonic.
 
-  * UPD 201406: multiple time formatting issues
+  * UPD 201407: multiple time formatting issues
   * UPD 201406: rewrote intro, add subpackaging issue
 
 
