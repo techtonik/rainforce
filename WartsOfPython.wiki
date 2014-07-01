@@ -1,6 +1,6 @@
 #summary Won't fix issues that make Python less pythonic.
 
-  * UPD 201406: add datetime.timedelta formatting issue
+  * UPD 201406: multiple time formatting issues
   * UPD 201406: rewrote intro, add subpackaging issue
 
 
@@ -258,7 +258,8 @@ The argument above can be list only for the sake of quoting it properly (if need
 
   * .communicate() is recommended way to avoid deadlocks, but you can not split output into two streams to make it appear on screen during processing and stored in the output variable
 
-== measure run time - too many ways to measure ==
+== measure time ==
+=== too many ways to measure ===
 
 _There should be one-- and preferably only one --obvious way to do it._
 {{{
@@ -285,7 +286,7 @@ _There should be one-- and preferably only one --obvious way to do it._
 '0:00:11.475000'
 }}}
 
-== measure run time - timedelta formatting inconsistency ==
+=== timedelta str format is inconsistent ===
 
 {{{
 >>> str(d.timedelta(seconds=666.0))
@@ -296,7 +297,7 @@ _There should be one-- and preferably only one --obvious way to do it._
 
 The wart is that low level API should operate on argument type, not on argument value. If API followed this pattern, you could use simple subindex `[:-4]` to format time to 2 digit precision.
 
-== measure run time - no obvious way to format time in seconds ==
+=== no obvious way to format time in seconds ===
 
 This is not intuitive:
 {{{
@@ -313,6 +314,10 @@ This is not intuitive:
 >>> time.format('%H:%M:%S', 1090)
 '00:18:10'
 }}}
+
+=== no way to format time milliseconds ===
+
+[https://docs.python.org/2/library/time.html#time.strftime time.strftime] just doesn't have format specifier to output fractions of second.
 
 == scopes of Python - global and local variables ==
 === inaccessible intermediate scope in Python 2===
