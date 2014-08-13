@@ -1,5 +1,5 @@
 #summary Best practices for tuning Google services for open source projects
-#labels Featured
+#labels Featured,Checklist
 
 === Make your project accessible ===
 
