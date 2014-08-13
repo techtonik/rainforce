@@ -1,5 +1,8 @@
 #summary Won't fix issues that make Python less pythonic.
 
+<g:plusone size="medium"></g:plusone>
+
+  * UPD 201408: add trailing space wart of stdlib.json
   * UPD 201407: multiple time formatting issues
   * UPD 201406: rewrote intro, add subpackaging issue
 
@@ -486,6 +489,21 @@ Summary: wanted 'import path' module with behavior that is expected from join op
 === re.sub discrepancy between matching and substitution groups ===
 
 `\0` doesn't work in Python as a whole matched regexp in substitution string for `re.sub` and friends, but `.group(0)` contains the whole match as expected. http://bugs.python.org/issue17426 This inconsistency is unlikely to be fixed thanks to backward compatibility concerns only and therefore is a wart.
+
+=== json leaves trailing whitespaces while indenting ===
+
+{{{
+import json
+with open("step0001", "w") as stepfile:
+    dataframe = dict([
+      ("line", 1),
+      ("stack", []),
+      ("result", "result")
+    ])
+    json.dump(dataframe, stepfile, indent=2)
+}}}
+
+Trailing spaces are ugly and HG and Git diffs complain about them. This is a wart, because it is not going to be fixed.
 
 == Standard tools warts ==
 === reStructuredText ===
