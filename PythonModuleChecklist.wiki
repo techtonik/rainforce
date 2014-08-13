@@ -24,3 +24,5 @@ python setup.py sdist upload
 
  * [ ] ...
 </wiki:comment>
+
+<g:plusone size="medium"></g:plusone>
