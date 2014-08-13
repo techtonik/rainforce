@@ -1,5 +1,5 @@
 #summary Things to remember for release
-#labels TheFlow
+#labels TheFlow,Checklist
 
 === Release ===
 
