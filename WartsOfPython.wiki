@@ -12,15 +12,17 @@
 
  http://www.catb.org/jargon/html/W/wart.html
 
-== What this page is about? ==
+== Foreword ==
 
-This page is solely about usability and UX of Python language interpreter, its native tools and everything that users usually download (or advised to download) from http://python.org/ including `pip` and `standard library`.
+If you don't have a personal list of warts in your favorite language, start building one. Otherwise, if a new language exists, how would you know that it is better?
 
-This page is also aware that `unix is for hackers` and meant to provide a sane balance to avoid http://www.catb.org/jargon/html/U/user-obsequious.html syndrome.
+== About ==
 
-== What this page is not? ==
+*This page is about* usability and UX (User eXperience) of Python language, interpreter and standard library - in other words the package that comes with official download from http://python.org/ including some external tools like `pip`.
 
-This page is not about core Python language itself. It is not about Python syntax, keywords, indentation etc. Python is not perfect in this regard, but it provides a good basis on this level to concentrate on more high level usability concepts.
+There is an attempt to keep the page concise to avoid http://www.catb.org/jargon/html/U/user-obsequious.html syndrome (and brain trained), but not in `unix is for hackers` sense of things.
+
+This page *is not about* core Python language syntax, keywords, indentation etc. Python is not perfect in this regard, but it provides a good basis on this level to concentrate on more high level usability concepts.
 
 == Why warts and why they appear? ==
 
