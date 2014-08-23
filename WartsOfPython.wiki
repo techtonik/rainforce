@@ -117,7 +117,7 @@ TODO - Python 3, OS X
 On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument, you will end up with filename composed of question marks for non-ASCII local symbols. Filenames that you won't be able to open.
 
 
-= Everything Else =
+= Internals =
 
 == __file__ is not absolute in Python < 3.4 ==
 
@@ -126,6 +126,29 @@ There is no way to get absolute filename of the script being executed if [https:
 == no __dir__ as __file__ augmentation ==
 
 You need to import `os` every time you need to access a file relative to current module. PHP has __FILE__ and __DIR__ and Python could have it. `os` calculation has one major flaw that __file__ is relative and calculation will fail if script managed to change directory before the calculation is executed
+
+== no lazy symbol import possible ==
+
+At first I was about to complain that there is `no __getattr__ for module`, but then realized the it is not the issue, so the issue is complicate and __getattr__ will not help here.
+
+{{{
+from package import MYSYMBOL
+}}}
+
+MYSYMBOL should be in `package/__init__.py`, but if you have it `package /darkmagic.py` in `package/__init__.py` you can only do this:
+
+{{{
+from .darkmagic import MYSYMBOL
+}}}
+
+You can't make a lazy import in Python for MYSYMBOL, because.. it requires two operations:
+
+1. check that a symbol is available in package and import name
+2. import the real darkmagic.MYSYMBOL when package.MYSYMBOL is first accessed (making proxy for MYSYMBOL in __init__.py, but better without proxy, because it may disrupt inheritance etc.)
+
+package.__getattr__ on module level will not help here, because it will be called during `from package import MYSYMBOL`, not when MYSYMBOL is really accessed, so (1) already fails. (2) is just impossible - for module imports in package it is real, but not for symbols.
+
+= Everything Else =
 
 == no reliable print/repr function in Python 3 ==
 
