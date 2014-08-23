@@ -24,7 +24,7 @@ There is an attempt to keep the page concise to avoid http://www.catb.org/jargon
 
 This page *is not about* core Python language syntax, keywords, indentation etc. Python is not perfect in this regard, but it provides a good basis on this level to concentrate on more high level usability concepts.
 
-== Why warts and why they appear? ==
+== Why warts and why do they appear? ==
 
 You can name them "usability issues" if you like, but the meaning won't change.
 
@@ -122,6 +122,10 @@ On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument,
 == __file__ is not absolute in Python < 3.4 ==
 
 There is no way to get absolute filename of the script being executed if [https://docs.python.org/3.4/whatsnew/3.4.html#other-language-changes __file__ is relative] and os.chdir happened. The recommendation is to follow [http://www.php.net/manual/en/language.constants.predefined.php PHP __FILE__] behaviour - absolute filename with symlinks resolved.
+
+== no __dir__ as __file__ augmentation ==
+
+You need to import `os` every time you need to access a file relative to current module. PHP has __FILE__ and __DIR__ and Python could have it. `os` calculation has one major flaw that __file__ is relative and calculation will fail if script managed to change directory before the calculation is executed
 
 == no reliable print/repr function in Python 3 ==
 
