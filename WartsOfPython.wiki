@@ -569,6 +569,10 @@ Links to other critique that can be useful for Python refactoring:
 
  * https://wiki.theory.org/YourLanguageSucks#Python_sucks_because:
 
+Guidelines and workarounds (could be fixed):
+ * http://doc.bazaar.canonical.com/developers/code-style.html#hasattr-and-getattr
+
+
 
 Constructive approach to wart invisibility problem from JavaScript guys:
  * http://bonsaiden.github.com/JavaScript-Garden/
