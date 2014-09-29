@@ -14,7 +14,7 @@
 
 == Foreword ==
 
-If you don't have a personal list of warts in your favorite language, start building one. Otherwise, if a new language exists, how would you know that it is better?
+If you don't have a personal list of warts in your favorite language, start building one. Otherwise, if a new language appears, how would you know that it is better?
 
 == About ==
 
