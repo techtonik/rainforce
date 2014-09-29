@@ -2,6 +2,7 @@
 
 <g:plusone size="medium"></g:plusone>
 
+  * UPD 201409: string to list append wart
   * UPD 201408: add trailing space wart of stdlib.json
   * UPD 201407: multiple time formatting issues
   * UPD 201406: rewrote intro, add subpackaging issue
@@ -119,17 +120,17 @@ On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument,
 
 = Internals =
 
-== __file__ is not absolute in Python < 3.4 ==
+== `__file__` is not absolute in Python < 3.4 ==
 
 There is no way to get absolute filename of the script being executed if [https://docs.python.org/3.4/whatsnew/3.4.html#other-language-changes __file__ is relative] and os.chdir happened. The recommendation is to follow [http://www.php.net/manual/en/language.constants.predefined.php PHP __FILE__] behaviour - absolute filename with symlinks resolved.
 
-== no __dir__ as __file__ augmentation ==
+== no `__dir__` as `__file__` augmentation ==
 
-You need to import `os` every time you need to access a file relative to current module. PHP has __FILE__ and __DIR__ and Python could have it. `os` calculation has one major flaw that __file__ is relative and calculation will fail if script managed to change directory before the calculation is executed
+You need to import `os` every time you need to access a file relative to current module. PHP has `__FILE__` and `__DIR__` and Python could have it. `os` calculation has one major flaw that `__file__` is relative and calculation will fail if script managed to change directory before the calculation is executed
 
 == no lazy symbol import possible ==
 
-At first I was about to complain that there is `no __getattr__ for module`, but then realized the it is not the issue, so the issue is complicate and __getattr__ will not help here.
+At first I was about to complain that there is `no __getattr__ for module`, but then realized the it is not the issue, so the issue is complicate and `__getattr__` will not help here.
 
 {{{
 from package import MYSYMBOL
@@ -182,6 +183,19 @@ This gives:
 [0, 0]
 }}}
 Some say that [http://pythonconquerstheuniverse.wordpress.com/2012/02/15/mutable-default-arguments/ this is a feature], but if to memorize a feature you need to be hit by it, and then learn language internals, that's a wart. The solution is to provide an explicit mechanism to define function specific variables that are preserved across function invocations. This will also help to detect such state preserving bugs when porting Python programs to be multithreaded.
+
+== String to list append wart ==
+{{{
+# Python 2.7.6
+>>> a = []
+>>> a = a + 'aaaaa'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate list (not "str") to list
+>>> a = []
+>>> a += 'aaaaa'
+>>> 
+}}}
 
 == Logging ==
 
