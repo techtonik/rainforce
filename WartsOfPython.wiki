@@ -122,7 +122,7 @@ On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument,
 
 == `__file__` is not absolute in Python < 3.4 ==
 
-There is no way to get absolute filename of the script being executed if [https://docs.python.org/3.4/whatsnew/3.4.html#other-language-changes __file__ is relative] and os.chdir happened. The recommendation is to follow [http://www.php.net/manual/en/language.constants.predefined.php PHP __FILE__] behaviour - absolute filename with symlinks resolved.
+There is no way to get absolute filename of the script being executed if [https://docs.python.org/3.4/whatsnew/3.4.html#other-language-changes `__file__` is relative] and os.chdir happened. The recommendation is to follow [http://www.php.net/manual/en/language.constants.predefined.php PHP __FILE__] behaviour - absolute filename with symlinks resolved.
 
 == no `__dir__` as `__file__` augmentation ==
 
@@ -145,9 +145,9 @@ from .darkmagic import MYSYMBOL
 You can't make a lazy import in Python for MYSYMBOL, because.. it requires two operations:
 
 1. check that a symbol is available in package and import name
-2. import the real darkmagic.MYSYMBOL when package.MYSYMBOL is first accessed (making proxy for MYSYMBOL in __init__.py, but better without proxy, because it may disrupt inheritance etc.)
+2. import the real darkmagic.MYSYMBOL when package.MYSYMBOL is first accessed (making proxy for MYSYMBOL in `__init__.py`, but better without proxy, because it may disrupt inheritance etc.)
 
-package.__getattr__ on module level will not help here, because it will be called during `from package import MYSYMBOL`, not when MYSYMBOL is really accessed, so (1) already fails. (2) is just impossible - for module imports in package it is real, but not for symbols.
+`package.__getattr__` on module level will not help here, because it will be called during `from package import MYSYMBOL`, not when MYSYMBOL is really accessed, so (1) already fails. (2) is just impossible - for module imports in package it is real, but not for symbols.
 
 = Everything Else =
 
@@ -184,7 +184,7 @@ This gives:
 }}}
 Some say that [http://pythonconquerstheuniverse.wordpress.com/2012/02/15/mutable-default-arguments/ this is a feature], but if to memorize a feature you need to be hit by it, and then learn language internals, that's a wart. The solution is to provide an explicit mechanism to define function specific variables that are preserved across function invocations. This will also help to detect such state preserving bugs when porting Python programs to be multithreaded.
 
-== String to list append wart ==
+== string to list append wart ==
 {{{
 # Python 2.7.6
 >>> a = []
