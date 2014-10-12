@@ -2,7 +2,7 @@
 
 <g:plusone size="medium"></g:plusone>
 
-  * UPD 201410: subprocess.PIPE mystery
+  * UPD 201410: subprocess revisit, add PIPE, child exceptions
   * UPD 201409: string to list append wart
   * UPD 201408: add trailing space wart of stdlib.json
   * UPD 201407: multiple time formatting issues
@@ -317,7 +317,15 @@ subprocess.PIPE
    should be opened.
 }}}
 
-Which PIPE to which standard stream should be opened? Where this PIPE originate from and where will it go? Good documentation/code make behavior *predictable* (thank Flux presentation). When I execute a `subprocess.Popen` without setting anything, pipes are not open (and programs that will attempt to write to stdout/stderr or read from stdin will likely to fail) `[ ]` need to check this. But when I set them to PIPE value? What is this `standard stream` that should be opened? Inherited handle from parent process of Python interpreter? `stream` object in memory that `sys.stdout` is attached to? Newly created `standard stream`-type object?
+Which PIPE to which standard stream should be opened? Where this PIPE originate from and where will it go? Good documentation/code make behavior *predictable* (thank Flux presentation). When I execute a `subprocess.Popen` without setting anything, are pipes open? Will programs that attempt to write to stdout/stderr or read from stdin fail? Well, `None` apparently means to inherit handles, so if your program is fine with closed handles then your subprocess may still fail by default.  And there is seems to be no intuitive way to execute child with closed handles. Well, there is `close_fds` argument, but what does it mean?
+
+{{{
+If close_fds is true, all file descriptors except 0, 1 and 2 will be closed before the child process is executed. (Unix only). Or, on Windows, if close_fds is true then no handles will be inherited by the child process. Note that on Windows, you cannot set close_fds to true and also redirect the standard handles by setting stdin, stdout or stderr.
+}}}
+
+What a mess.. Not only cross-platform, but also even more mysterious with this numbered `file descriptors` stuff. Ok. Let get back to PIPE.
+
+What if I set Popep arguments them to PIPE value? What is this `standard stream` referenced in help text that should be opened? Inherited handle from parent process of Python interpreter? `stream` object in memory that `sys.stdout` is attached to? Newly created `standard stream`-type object?
 
 To make matters worse, there is followup constant:
 {{{
@@ -329,6 +337,29 @@ subprocess.STDOUT
 First there was a `stream`, now there is a mystic value that does magic with some `handle`. A much better interface would be parameter `mergestderr` to `Popen`. It is not clear what were the reasons to make interface more complicated with the constant instead.
 
 A good thing could be to provide a `PIPE wrapper` object model with description of different OS implementation, instead of burying OS implementations so deep that it always impossible to work.
+
+=== Subprocess - exceptions from child programs ===
+
+https://docs.python.org/2/library/subprocess.html#exceptions - this one is also nasty. 
+{{{
+Exceptions raised in the child process, before the new program has started to execute, will be re-raised in the parent. Additionally, the exception object will have one extra attribute called child_traceback, which is a string containing traceback information from the child’s point of view.
+}}}
+I really fail to understand this paragraph. The following program creates and executes a script that fails with NameError and should be reraised, but that doesn't happen:
+{{{
+import sys, subprocess
+open('onmy.py', 'w').write('''
+print fault
+''')
+p = subprocess.Popen(sys.executable + ' onmy.py', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+p.wait()
+
+print("""
+.....
+.....
+.....""")
+}}}
+
+The paragraph though says "Exceptions raised in the child process, before the new program has started to execute". Here I fail to understand which exceptions can be raised in child process before child process started to execute. The paragraph below mentions OSError in case of missing program to be executed - that's fine, but what is that `traceback information from the child’s point of view` that documentation is talking about???
 
 == measure time ==
 === too many ways to measure ===
