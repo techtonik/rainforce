@@ -2,6 +2,7 @@
 
 <g:plusone size="medium"></g:plusone>
 
+  * UPD 201410: subprocess.PIPE mystery
   * UPD 201409: string to list append wart
   * UPD 201408: add trailing space wart of stdlib.json
   * UPD 201407: multiple time formatting issues
@@ -283,13 +284,15 @@ Warts continued.
 
 == Subprocess ==
 
-=== Subprocess - implicit argument conversion ===
-
 [http://docs.python.org/library/subprocess.html Subprocess] module did a great job to reduce the number of various ways and pitfalls of executing external programs from Python, but it is not enough.
 
-External programs can be executed directly, or from shell. Why the latter is required is not immediately obvious (IMO it should be explained in Python manual, but I am busy with [http://code.google.com/p/pydotorg/issues/detail?id=6 pydotorg:issue:6] to fix it the old way), but I guess it is to inherit environment variable to find your command is in %PATH%.
+=== Subprocess - implicit argument conversion ===
 
-The way the program is executed is controlled by `shell` argument to the main subprocess function - `Popen`. However, this changes the meaning of the first argument (defining the command to be executed and its params)  quite significantly. That means it is possible to lose your arguments or pass them to the wrong command or just fail on one platform, but work on the other.
+Subprocess executes programs directly or through the `shell`. `shell` is a program provided by OS for command line interface. This interface often inherits environment variables (%PATH%) and allows to change them, allows to find your command.
+
+`shell` argument to the module main function `subprocess.Popen` controls if program is executed from shell. However, this changes the meaning of the parameter that defines the command and parameters to be executed quite significantly. It is possible to lose your arguments or pass them to the wrong command, it is possible to make command just fail on one platform, but work on the other. So, it is a can of worms with no book describing all this behavior.
+
+*What could be changed?* Base interface where you detect `shell` program manually and execute your program inside of it by launching the `shell` with needed parameters. This decoupling will immediately identify all weak points and hacks in `subprocess` module. Launching program in shell and controlling it should not be different from launching any other console program with the help of other program.
 
 === Subprocess - awkward API ===
 
@@ -300,9 +303,32 @@ Provide helpers with consistent meaning of arguments aimed to solve particular u
   # Execute command getting its output for further processing, e.g. `out = callout('svn log %s' % fname)
 The argument above can be list only for the sake of quoting it properly (if needed).
 
-=== Subprocess - things you can not do ===
+=== Subprocess - now way to split output ===
 
-  * .communicate() is recommended way to avoid deadlocks, but you can not split output into two streams to make it appear on screen during processing and stored in the output variable
+communicate() is recommended way to avoid deadlocks, but you can not split output into two streams to make it appear on screen during processing and stored in the output variable
+
+=== Subprocess - mystery of subprocess.PIPE ===
+
+It sometimes amazes me how Python documentation can be short, low-level, descriptive and confusing at the same place. Confusing docs is a 100% indicator that module to be described is pretty full of hacks. For example,  [https://docs.python.org/2/library/subprocess.html#subprocess.PIPE subprocess.PIPE]:
+{{{
+subprocess.PIPE
+   Special value that can be used as the stdin, stdout or stderr
+   argument to Popen and indicates that a pipe to the standard stream
+   should be opened.
+}}}
+
+Which PIPE to which standard stream should be opened? Where this PIPE originate from and where will it go? Good documentation/code make behavior *predictable* (thank Flux presentation). When I execute a `subprocess.Popen` without setting anything, pipes are not open (and programs that will attempt to write to stdout/stderr or read from stdin will likely to fail) `[ ]` need to check this. But when I set them to PIPE value? What is this `standard stream` that should be opened? Inherited handle from parent process of Python interpreter? `stream` object in memory that `sys.stdout` is attached to? Newly created `standard stream`-type object?
+
+To make matters worse, there is followup constant:
+{{{
+subprocess.STDOUT
+   Special value that can be used as the stderr argument to Popen and
+   indicates that standard error should go into the same handle as
+   standard output.
+}}}
+First there was a `stream`, now there is a mystic value that does magic with some `handle`. A much better interface would be parameter `mergestderr` to `Popen`. It is not clear what were the reasons to make interface more complicated with the constant instead.
+
+A good thing could be to provide a `PIPE wrapper` object model with description of different OS implementation, instead of burying OS implementations so deep that it always impossible to work.
 
 == measure time ==
 === too many ways to measure ===
