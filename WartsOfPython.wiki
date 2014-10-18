@@ -2,6 +2,7 @@
 
 <g:plusone size="medium"></g:plusone>
 
+  * UPD 201410: revisited windows io encoding warts
   * UPD 201410: subprocess revisit, add PIPE, child exceptions
   * UPD 201409: string to list append wart
   * UPD 201408: add trailing space wart of stdlib.json
@@ -114,9 +115,39 @@ TODO - Python 3, Linux
 TODO - Python 3, OS X
 }}}
 
-== Python 2 misses non-ASCII filenames ==
+== Python 2 skips non-ASCII filenames on Windows ==
 
-On Windows, if you use non-unicode string as `os.walk` or `os.listdir` argument, you will end up with filename composed of question marks for non-ASCII local symbols. Filenames that you won't be able to open.
+`os.walk` and `os.listdir` on Windows garbles non-ASCII characters in filenames with question marks, and it is impossible to reference these files further. You always need to pass unicode strings as arguments to `os.walk` and `os.listdir` to prevent this behavior.
+
+== Python 2 can't print unicode to Windows console ==
+
+This is the most unfortunate misfeature of Python. If you try to print unicode string to Windows console, you script will break with UnicodeEncodeError. It doesn't even matter if you console encoding uses compatible character set.
+
+{{{
+# _*_ coding: utf-8 _*_
+print(u'тест вывода русского языка в консоль на Windows Vista')
+}}}
+
+Python 2:
+{{{
+    print(u'╤é╨╡╤ü╤é ╨▓╤ï╨▓╨╛╨┤╨░ ╤Ç╤â╤ü╤ü╨║╨╛╨│╨╛ ╤Å╨╖╤ï╨║╨░ ╨▓ ╨║╨╛╨╜╤ü╨╛╨╗╤î ╨╜╨░ Windows Vista')
+  File "C:\Python27\lib\encodings\cp437.py", line 12, in encode
+    return codecs.charmap_encode(input,errors,encoding_map)
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-3: character maps to <undefined>
+}}}
+
+Python 3:
+{{{
+    print(u'\u0442\u0435\u0441\u0442 \u0432\u044b\u0432\u043e\u0434\u0430 \u0440\u0443\u0441\u0441\u043a\u043e\u0433\u043e \u044f\u0437\u044b\u043a\u0430 \u0432 \u043a\u043e\u043
+u0441\u043e\u043b\u044c \u043d\u0430 Windows Vista')
+  File "C:\Python34\lib\encodings\cp437.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_map)[0]
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-3: character maps to <undefined>
+}}}
+
+The good way is to open Windows console in binary mode and output everything as-is (converting to closest representation first). At least that would make debug possible. Python should not replace unreadable characters, because output stream may be redirected and changed. Let console/system do the question mark substitution.
+
+Many international users are pissed off by the above two warts, and IIRC Mercurial doesn't support non-english names at least on Windows Vista because of this stuff.
 
 
 = Internals =
