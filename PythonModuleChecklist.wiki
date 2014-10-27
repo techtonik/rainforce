@@ -1,4 +1,4 @@
-#summary Things to remember for release
+#summary Things to remember
 #labels TheFlow,Checklist
 
 === Release ===
@@ -19,10 +19,13 @@
 python setup.py sdist upload
 }}}
 
-<wiki:comment>
-=== Development ===
+=== Level Up ===
 
- * [ ] ...
-</wiki:comment>
+ * [ ] Runnable
+   * python -m module
+ * [ ] Python 2/3 compatible
+   * python2 -m module
+   * python3 -m module
+
 
 <g:plusone size="medium"></g:plusone>
