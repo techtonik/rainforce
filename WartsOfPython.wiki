@@ -697,6 +697,7 @@ Links to other critique that can be useful for Python refactoring:
  * http://packages.python.org/kitchen/unicode-frustrations.html
  * http://zedshaw.com/essays/curing_pythons_neglect.html
  * http://programming.oreilly.com/2013/10/dead-batteries-included.html
+ * http://jacobian.org/writing/hate-python/
 
  * https://wiki.theory.org/YourLanguageSucks#Python_sucks_because:
 
