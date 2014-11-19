@@ -1,15 +1,15 @@
-#summary Cross-platform Highly Abstract Operating System
+#summary Concept of Human-Augmenting Operating System
 #labels Concept
 
 = Introduction =
 
-Traditional operating system were hardware-oriented. This is a concept of operating system for humans.
+Traditional operating systems were hardware-oriented. The concepts listed here should be considered by operating systems for humans.
 
 = Details =
 
-As a human being you need to explain, to see and to exist. If you can't create, you don't exist. The complexity of modern OS puts the freedom of expression away from people. This should be given back.
+To exist, you need a space to see and to express. If you don't create, you don't exist. The complexity of computer OS puts the freedom of expression away from people. This should be given back.
 
-Operating System. Code is law. Operating system is a system that allows you some operations. `Allows` means you can do these operations. `You can` means it is simple to do and to learn. That also means that it is fun, so you won't `bounce` while trying to do anything. `OS for humans` means that the interface adapts itself to human knowledge level rather than placing a requirements on humans to raise their knowledge about itself. Levels of power should be accessible.
+Operating System is Code, and Code is Law. This is the system of code that allows you to do some operations. `Allows` means that the thing that you want to do is simple to do, and simple to learn how to do it. That also means that it is fun, so you won't `bounce away` while trying to do anything. `OS for humans` means that the interface adapts itself to human knowledge level rather than placing a requirements on humans to raise their knowledge about itself. Levels of power should be accessible.
 
 Highly Abstract. This means there are no complicated protocols, detailed specifications and things that are boring in equivalent. Every part of system design should be interesting to play with and understand. Only when a simple alternative exists, a more complicated things are possible. The ultimate level of abstraction is description of human needs. These are concepts that may not have a possible implementation due to various conflicts. Every component is a feature. Every feature is optional. Every set of non-optional features is called "a core".
 
