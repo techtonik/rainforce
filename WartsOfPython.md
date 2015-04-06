@@ -1,0 +1,713 @@
+
+
+  * UPD 201410: revisited windows io encoding warts
+  * UPD 201410: subprocess revisit, add PIPE, child exceptions
+  * UPD 201409: string to list append wart
+  * UPD 201408: add trailing space wart of stdlib.json
+  * UPD 201407: multiple time formatting issues
+  * UPD 201406: rewrote intro, add subpackaging issue
+
+
+> wart: n.
+> > A small, crocky feature that sticks out of an otherwise clean design. Something conspicuous for localized ugliness, especially a special-case exception to a general rule.
+
+
+> http://www.catb.org/jargon/html/W/wart.html
+
+## Foreword ##
+
+If you don't have a personal list of warts in your favorite language, start building one. Otherwise, if a new language appears, how would you know that it is better?
+
+## About ##
+
+**This page is about** usability and UX (User eXperience) of Python language, interpreter and standard library - in other words the package that comes with official download from http://python.org/ including some external tools like `pip`.
+
+There is an attempt to keep the page concise to avoid http://www.catb.org/jargon/html/U/user-obsequious.html syndrome (and brain trained), but not in `unix is for hackers` sense of things.
+
+This page **is not about** core Python language syntax, keywords, indentation etc. Python is not perfect in this regard, but it provides a good basis on this level to concentrate on more high level usability concepts.
+
+## Why warts and why do they appear? ##
+
+You can name them "usability issues" if you like, but the meaning won't change.
+
+I am obsessed with usability. Shaving yaks is my hobby, my free time, the way of thinking, and the source of constant conflicts with getting job done. Usual stuff.. I get punished, depressed, out of money, but there is nothing else I can do. I tried.. and failed. So this a summary of my experience. Some of these notes are really-really-really expensive if we take an idealistic hourly rate of 20$/hour, but they don't have a sponsor, so I just put them here. Well, actually I had a lot of hope in getting a lot of beer in exchange for this stuff, but evil doctors spoiled my plan and now this info is worthless.
+
+Why I did this? Every time I shave a yak, I think that Earth is full of people and that right at this moment somebody shaves a different yak. I continue to think about this and wonder - what if she (or he) shaves exactly the same yak as I do.. How strange.. It is even possible that she or he shaves exactly the same place!.. Weird..
+
+Then my practical part pops up and I can start to think about this more - why we are shave yaks again and again, wasting time on exactly the same parts, distracted from real purpose. Even NASA engineers have to use Python, and they shave yaks too. Aren't they supposed to develop and show us wonders of deep space before the show stops? Why are they shaving yaks?? The answer is simple - because everybody do.
+
+And how does it relate to warts? Well, shaving yaks is a wart-driven process. People like to scratch their own itches, because it is impossible, but you can not do much about warts, so the only way is to live with them. And that's wrong. Even if it is impossible to get rid of wart, the genetics and causes should be analyzed to avoid spreading them in the future.
+
+
+So, how do warts appear in community projects like Python. I can name a few reasons. First and primary reason is community communication failure. There are thousands people using Python. Few are able to track what happens with Python development. Even less have time and skills to monitor, filter and contribute to the communication alone. Python communications doesn't scale, they are not focused. UX study of ML comminication is a sad business, because there is not much you can improve there.
+
+Let me say one good thing or else it will look all too gloomy. Zen of Python is awesome! This is a good hack to make a lot of people be aware of best principles used in language engineering. Well, that's obvious. The awesome part is that Zen changes How people think about language without lengthy and boring notations (see user-obsequious above).
+
+So, let's start with Zen of Python as very good thing that sets rules for language evolution and see why it is insufficient on higher level.
+
+  1. We live in internet era, so we need to care about data. Not only language itself, but the defaults. They are important. We are living in internet - there is no Linux, Windows. Internet is cross-platform, its users have taught that it is good when data is platform independent. Unfortunately, Python doesn't have this principle, and core unix hackers who write CPython in C still threat data as being platform-dependent, so such warts appear even in brand new Python 3 (see open() wart below). In era of diverse and interconnected systems, if data needs to be handled in operating system specific way, this should be explicit.
+
+> 2. All complex systems (and ecosystems) are based on feedback. Python community process exists to communicate feedback, but there is no mechanism to raise importance of some issues, and deliver issues to the interested subgroup of people.
+
+> 3. No work with mistakes. No retrospective analysis of the issues. It is hard to make this is distributed manner, but the real problem is that it is not in current development culture, so it is impossible to concentrate. For example, core API calls like subprocess.Popen do a lot of things at once, and the same thing repeated with Python 3.3 open() encoding selection logic.
+
+> 4. No visibility into other usage scenarios of some feature. Smart are all bought out, so the good strategy is it to assume that majority of people who can help are not so skilled. There are many things that can be done, but one of the most important is making the list of these things and make sure that this list is visible, and fun to work with. I am not talking about OpenHatch - it is only a part of solution and not the perfect one. In perfect solution you have a gameplay. And if a person wants to contribute - every personal experience is counted and analyzed.
+
+So, the answer to the question `why warts appear?` is `because nobody guards against them`. Hopefully these notes could help someone draft a strategy to deal with warts. At least this list is something to start from.
+
+
+Contents:
+
+
+
+# Input/Output Issues #
+## open() on python 3 uses default system encoding ##
+If you use Python 3. If your text file in UTF-8. And if you're reading it without explicit encoding, you're screwed `[`[1](https://bitbucket.org/techtonik/hexdump/pull-request/1/since-the-input-file-is-a-specific/diff)`]`. That's because some user will probably has system with Greek locale, and it will be the encoding that Python will try to open the file in.
+
+**recommendation**: Text files should be opened in universal encoding. UTF-8 is the backward compatible and most popular way.
+
+## stdout buffering ##
+Python is a victim of premature optimization.
+```
+import sys
+import time
+
+print("get", end="")
+time.sleep(3)
+print("me")
+time.sleep(3)
+sys.stdout.write("onscreen")
+time.sleep(3)
+```
+In this code phrases "get" and "onscreen" appear only after the sleep operation (Linux, Python 3.2).  To turn this off you need [some monkey-patching hacks](http://stackoverflow.com/questions/107705/python-output-buffering).
+
+New Python users are not aware of various buffering magic, so this issue comes to be very confusing for them. The question that print without newline doesn't work is [45th from top 100](http://stackoverflow.com/questions/tagged/python?page=1&sort=votes&pagesize=50) on StackOverflow. Note that if output is redirected to a file or a socket, new lines won't cause the buffer to flush. You need to flush output stream explicitly if you want the output from Python script to appear ASAP.
+
+## stdout is in text mode by default ##
+
+Python produces broken binary data if you just write them (or print) to stdout.
+
+Python 2, Windows:
+```
+> python -c "import sys; sys.stdout.write('_\n_')" > 2
+> python -c "print repr(open('2', 'rb').read())"
+'_\r\n_'
+```
+
+To fix it, you need to use hacks:
+Python 2, Windows:
+```
+import sys
+
+if sys.platform == "win32":
+  import os, msvcrt
+  msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
+
+sys.stdout.write('_\n_')
+```
+
+```
+TODO - Python 2, Linux
+TODO - Python 2, OS X
+TODO - Python 3, Windows
+TODO - Python 3, Linux
+TODO - Python 3, OS X
+```
+
+## Python 2 skips non-ASCII filenames on Windows ##
+
+`os.walk` and `os.listdir` on Windows garbles non-ASCII characters in filenames with question marks, and it is impossible to reference these files further. You always need to pass unicode strings as arguments to `os.walk` and `os.listdir` to prevent this behavior.
+
+## Python 2 can't print unicode to Windows console ##
+
+This is the most unfortunate misfeature of Python. If you try to print unicode string to Windows console, you script will break with UnicodeEncodeError. It doesn't even matter if you console encoding uses compatible character set.
+
+```
+# _*_ coding: utf-8 _*_
+print(u'тест вывода русского языка в консоль на Windows Vista')
+```
+
+Python 2:
+```
+    print(u'╤é╨╡╤ü╤é ╨▓╤ï╨▓╨╛╨┤╨░ ╤Ç╤â╤ü╤ü╨║╨╛╨│╨╛ ╤Å╨╖╤ï╨║╨░ ╨▓ ╨║╨╛╨╜╤ü╨╛╨╗╤î ╨╜╨░ Windows Vista')
+  File "C:\Python27\lib\encodings\cp437.py", line 12, in encode
+    return codecs.charmap_encode(input,errors,encoding_map)
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-3: character maps to <undefined>
+```
+
+Python 3:
+```
+    print(u'\u0442\u0435\u0441\u0442 \u0432\u044b\u0432\u043e\u0434\u0430 \u0440\u0443\u0441\u0441\u043a\u043e\u0433\u043e \u044f\u0437\u044b\u043a\u0430 \u0432 \u043a\u043e\u043
+u0441\u043e\u043b\u044c \u043d\u0430 Windows Vista')
+  File "C:\Python34\lib\encodings\cp437.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_map)[0]
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-3: character maps to <undefined>
+```
+
+The good way is to open Windows console in binary mode and output everything as-is (converting to closest representation first). At least that would make debug possible. Python should not replace unreadable characters, because output stream may be redirected and changed. Let console/system do the question mark substitution.
+
+Many international users are pissed off by the above two warts, and IIRC Mercurial doesn't support non-english names at least on Windows Vista because of this stuff.
+
+
+# Internals #
+
+## `__file__` is not absolute in Python < 3.4 ##
+
+There is no way to get absolute filename of the script being executed if [`\_\_file\_\_` is relative](https://docs.python.org/3.4/whatsnew/3.4.html#other-language-changes) and os.chdir happened. The recommendation is to follow [PHP \_\_FILE\_\_](http://www.php.net/manual/en/language.constants.predefined.php) behaviour - absolute filename with symlinks resolved.
+
+## no `__dir__` as `__file__` augmentation ##
+
+You need to import `os` every time you need to access a file relative to current module. PHP has `__FILE__` and `__DIR__` and Python could have it. `os` calculation has one major flaw that `__file__` is relative and calculation will fail if script managed to change directory before the calculation is executed
+
+## no lazy symbol import possible ##
+
+At first I was about to complain that there is `no __getattr__ for module`, but then realized the it is not the issue, so the issue is complicate and `__getattr__` will not help here.
+
+```
+from package import MYSYMBOL
+```
+
+MYSYMBOL should be in `package/__init__.py`, but if you have it `package /darkmagic.py` in `package/__init__.py` you can only do this:
+
+```
+from .darkmagic import MYSYMBOL
+```
+
+You can't make a lazy import in Python for MYSYMBOL, because.. it requires two operations:
+
+1. check that a symbol is available in package and import name
+2. import the real darkmagic.MYSYMBOL when package.MYSYMBOL is first accessed (making proxy for MYSYMBOL in `__init__.py`, but better without proxy, because it may disrupt inheritance etc.)
+
+`package.__getattr__` on module level will not help here, because it will be called during `from package import MYSYMBOL`, not when MYSYMBOL is really accessed, so (1) already fails. (2) is just impossible - for module imports in package it is real, but not for symbols.
+
+# Everything Else #
+
+## no reliable print/repr function in Python 3 ##
+
+`print` in Python 3 got obligatory (), which is a hindrance, because entering parentheses uses inconvenient shift keypress. But that's nothing compared with the absence of reliable and predictable `print` function for dumping contents of variables, because in Python 3 this is not guaranteed to succeed:
+```
+print(repr(variable))
+```
+
+There is a chance that you will get something like:
+```
+'charmap' codec can't encode character '\xb6' in position 1851: character maps to <undefined>
+```
+
+Especially if `variable` is a complex structure and may use different encodings inside. And at the time of writing this text I don't know what hacks is needed for a workaround.
+
+**recommendation**: `repr()` in Python 3 should always return quoted structure.
+
+## mutable defaults trap ##
+```
+def foo(bar=[]):
+  bar.append(0)
+  print(bar)
+
+foo()
+foo()
+```
+
+This gives:
+```
+[0]
+[0, 0]
+```
+Some say that [this is a feature](http://pythonconquerstheuniverse.wordpress.com/2012/02/15/mutable-default-arguments/), but if to memorize a feature you need to be hit by it, and then learn language internals, that's a wart. The solution is to provide an explicit mechanism to define function specific variables that are preserved across function invocations. This will also help to detect such state preserving bugs when porting Python programs to be multithreaded.
+
+## string to list append wart ##
+```
+# Python 2.7.6
+>>> a = []
+>>> a = a + 'aaaaa'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate list (not "str") to list
+>>> a = []
+>>> a += 'aaaaa'
+>>> 
+```
+
+## Logging ##
+
+Standard Python logging suxx. Prooflinks:
+  * [Supervisor](https://github.com/Supervisor/supervisor/blob/master/supervisor/loggers.py)
+  * [Twisted](http://twistedmatrix.com/trac/wiki/TwistedLogging)
+  * [3rd place in modules that need redesign](http://sayspy.blogspot.com/2009/07/results-of-informal-poll-about-standard.html)
+  * [Logbook - alternative with features that `logging` misses](http://packages.python.org/Logbook/)
+
+```
+Q: Why?
+A: You will inevitably face with problems below and will have to read a
+lengthy doc with proper explanations
+Q: Why it can not be fixed?
+A: Backwards compatibility
+Q: Why not logging2?
+A: Some Python developers do not feel that DMMT is sufficient reason
+```
+
+### Logging hidden magic (2.x tested, 3.x unknown) ###
+
+To make `logging` module more easy to use, e.g.
+```
+import logging
+
+logging.error('SNAFU')
+```
+it makes an automatic configuration when any top level functions like logging.error() are called. More specifically, it implicitly calls `basicConfig()` which is a one-shot function that can be called only once.
+
+As a result, if imported modules are using logging in simplified mode, you have to keep in mind different things about `basicConfig()` that are better to live without.
+
+http://bugs.python.org/issue1164953
+
+This behaviour is confusing for people, it's not intuitive. Consider the following two separate Python sessions:
+```
+>>> import logging as l
+>>> l.error("x")
+ERROR:root:x
+>>> l.getLogger('x').error('x')
+ERROR:x:x
+```
+
+```
+>>> import logging as l
+>>> l.getLogger('x').error('x')
+No handlers could be found for logger "x"
+```
+
+http://bugs.python.org/issue1354052 <br />
+http://bugs.python.org/issue16539
+
+It is also doubtful how to provide default logging configuration for a library? For example, when library wants to disable all output by default. If such library is imported after the main logging configuration that enables library output - then such import will break the config.
+
+
+**recommendation** (ideal case) - Start with study of several use case scenarios:
+  1. basic 'logging' usage - 'import logging; logging.log()'
+  1. advanced usage - all imported modules are using 'import logging; logging.log()'
+  1. more advanced example - mixed usage of named and unnamed loggers in imported modules and root app
+  1. default behaviour - with two and three level hierarchy of modules
+
+
+### Logging best practices - specify `__name__` manually ###
+
+Best practices recommend using module `__name__` variable as logger's name. `__name__`  that contains the name under which a module is imported.
+```
+import logging 
+logger = logging.getLogger(__name__)
+```
+
+If the module is executed from command line, `__name__` will equal to `__main__`, if it is imported like `import trac.db.api` then the `__name__` will be equal to `trac.db.api`. Quite convenient.
+
+Now about warts.
+  1. The first time you call warning(), error() or critical() you'll get 'No handlers could be found for logger "main" (Python 2.x, http://bugs.python.org/issue16539)
+
+**recommendation** - For Python 2.x [copy NullHandler](http://hg.python.org/cpython/file/771f28686022/Lib/logging/__init__.py#l1669) from Python 2.7 to your library and add it as:
+```
+logger.addHandler(NullHandler())
+```
+
+Warts continued.
+  1. You need to insert the line `logger = logging.getLogger(__name__)` into every file, even though logging could detect this name automatically and invoke appropriate logger by default using inspect (example code at https://gist.github.com/1291125).
+  1. [Log record](http://docs.python.org/library/logging.html#logrecord-attributes) contains `%(module)s` field that you can use to format message, but this is not the module `__name__` above - it is merely `name portion of %(filename)s`. You need to keep in mind that you need `%(name)s` - name of the logger - here.
+
+**recommendation** - The above can be fixed with Python code, but a lot of logging calls incur performance overhead by logger choosing and filtering. However, if `__name__` convention is adopted by default, the Python internals can be reworked so that filtering is done on a interpreter level even before the code enters log() function.
+
+## Subprocess ##
+
+[Subprocess](http://docs.python.org/library/subprocess.html) module did a great job to reduce the number of various ways and pitfalls of executing external programs from Python, but it is not enough.
+
+### Subprocess - implicit argument conversion ###
+
+Subprocess executes programs directly or through the `shell`. `shell` is a program provided by OS for command line interface. This interface often inherits environment variables (%PATH%) and allows to change them, allows to find your command.
+
+`shell` argument to the module main function `subprocess.Popen` controls if program is executed from shell. However, this changes the meaning of the parameter that defines the command and parameters to be executed quite significantly. It is possible to lose your arguments or pass them to the wrong command, it is possible to make command just fail on one platform, but work on the other. So, it is a can of worms with no book describing all this behavior.
+
+**What could be changed?** Base interface where you detect `shell` program manually and execute your program inside of it by launching the `shell` with needed parameters. This decoupling will immediately identify all weak points and hacks in `subprocess` module. Launching program in shell and controlling it should not be different from launching any other console program with the help of other program.
+
+### Subprocess - awkward API ###
+
+If you ever looked at subprocess examples - you may have noticed how lengthy the commands are. Coupled with the above wart, this makes it almost absolutely impossible to use Python as a cross-platform replacement of shell language.
+
+**What can be done?**
+Provide helpers with consistent meaning of arguments aimed to solve particular user level tasks:
+  1. Execute command getting its output for further processing, e.g. `out = callout('svn log %s' % fname)
+The argument above can be list only for the sake of quoting it properly (if needed).
+
+### Subprocess - now way to split output ###
+
+communicate() is recommended way to avoid deadlocks, but you can not split output into two streams to make it appear on screen during processing and stored in the output variable
+
+### Subprocess - mystery of subprocess.PIPE ###
+
+It sometimes amazes me how Python documentation can be short, low-level, descriptive and confusing at the same place. Confusing docs is a 100% indicator that module to be described is pretty full of hacks. For example,  [subprocess.PIPE](https://docs.python.org/2/library/subprocess.html#subprocess.PIPE):
+```
+subprocess.PIPE
+   Special value that can be used as the stdin, stdout or stderr
+   argument to Popen and indicates that a pipe to the standard stream
+   should be opened.
+```
+
+Which PIPE to which standard stream should be opened? Where this PIPE originate from and where will it go? Good documentation/code make behavior **predictable** (thank Flux presentation). When I execute a `subprocess.Popen` without setting anything, are pipes open? Will programs that attempt to write to stdout/stderr or read from stdin fail? Well, `None` apparently means to inherit handles, so if your program is fine with closed handles then your subprocess may still fail by default.  And there is seems to be no intuitive way to execute child with closed handles. Well, there is `close_fds` argument, but what does it mean?
+
+```
+If close_fds is true, all file descriptors except 0, 1 and 2 will be closed before the child process is executed. (Unix only). Or, on Windows, if close_fds is true then no handles will be inherited by the child process. Note that on Windows, you cannot set close_fds to true and also redirect the standard handles by setting stdin, stdout or stderr.
+```
+
+What a mess.. Not only cross-platform, but also even more mysterious with this numbered `file descriptors` stuff. Ok. Let get back to PIPE.
+
+What if I set Popep arguments them to PIPE value? What is this `standard stream` referenced in help text that should be opened? Inherited handle from parent process of Python interpreter? `stream` object in memory that `sys.stdout` is attached to? Newly created `standard stream`-type object?
+
+To make matters worse, there is followup constant:
+```
+subprocess.STDOUT
+   Special value that can be used as the stderr argument to Popen and
+   indicates that standard error should go into the same handle as
+   standard output.
+```
+First there was a `stream`, now there is a mystic value that does magic with some `handle`. A much better interface would be parameter `mergestderr` to `Popen`. It is not clear what were the reasons to make interface more complicated with the constant instead.
+
+A good thing could be to provide a `PIPE wrapper` object model with description of different OS implementation, instead of burying OS implementations so deep that it always impossible to work.
+
+### Subprocess - exceptions from child programs ###
+
+https://docs.python.org/2/library/subprocess.html#exceptions - this one is also nasty.
+```
+Exceptions raised in the child process, before the new program has started to execute, will be re-raised in the parent. Additionally, the exception object will have one extra attribute called child_traceback, which is a string containing traceback information from the child’s point of view.
+```
+I really fail to understand this paragraph. The following program creates and executes a script that fails with NameError and should be reraised, but that doesn't happen:
+```
+import sys, subprocess
+open('onmy.py', 'w').write('''
+print fault
+''')
+p = subprocess.Popen(sys.executable + ' onmy.py', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+p.wait()
+
+print("""
+.....
+.....
+.....""")
+```
+
+The paragraph though says "Exceptions raised in the child process, before the new program has started to execute". Here I fail to understand which exceptions can be raised in child process before child process started to execute. The paragraph below mentions OSError in case of missing program to be executed - that's fine, but what is that `traceback information from the child’s point of view` that documentation is talking about???
+
+## measure time ##
+### too many ways to measure ###
+
+_There should be one-- and preferably only one --obvious way to do it._
+```
+>>> from datetime import datetime
+>>> s = datetime.now()
+>>> str(datetime.now() - s)
+'0:00:11.475000'
+```
+
+```
+>>> from time import time
+>>> s = time()
+>>> str(time() - s)
+'11.8889999389'
+```
+
+**What can be done?**
+```
+>>> import timer
+>>> timer.get(precision=2)
+'0:00:11.47'
+>>> timer.start('newtimername')
+>>> timer.get('newtimername')
+'0:00:11.475000'
+```
+
+### timedelta str format is inconsistent ###
+
+```
+>>> str(d.timedelta(seconds=666.0))
+'0:11:06'
+>>> str(d.timedelta(seconds=666.1))
+'0:11:06.100000'
+```
+
+The wart is that low level API should operate on argument type, not on argument value. If API followed this pattern, you could use simple subindex `[:-4]` to format time to 2 digit precision.
+
+### no obvious way to format time in seconds ###
+
+This is not intuitive:
+```
+>>> import time
+>>> time.strftime("%H:%M:%S", time.gmtime(666))
+'00:11:06'
+```
+
+**What can be done?**
+```
+>>> import time
+>>> time.format('{{hours}}:{{minutes}}:{{seconds}}', 1090)
+'00:18:10'
+>>> time.format('%H:%M:%S', 1090)
+'00:18:10'
+```
+
+### no way to format time milliseconds ###
+
+[time.strftime](https://docs.python.org/2/library/time.html#time.strftime) just doesn't have format specifier to output fractions of second.
+
+## scopes of Python - global and local variables ##
+### inaccessible intermediate scope in Python 2 ###
+```
+ora = 'cool'
+def er():
+    print ora,
+er()
+print ora
+```
+This prints `cool cool`.
+
+```
+ora = 'cool'
+def er():
+    ora = 'cept'
+    print ora,
+er()
+print ora
+```
+This prints `cept cool`. Hopefully that's clear - inside `function scope` global variable is overridden by local variable.
+
+```
+ora = 'cool'
+def er():
+    global ora
+    ora = 'cept'
+    print ora,
+er()
+print ora
+```
+This prints `cept cept`. Hopefully that's also clear.
+
+Now with new nested function.
+```
+ora = 'cool'
+def er():
+    ora = 'cepti'
+    def ee():
+        print ora, # prints first
+    ee()
+    print ora,     # second
+er()
+print ora          # last
+```
+`cepti cepti cool`
+
+```
+ora = 'cool'
+def er():
+    ora = 'cepti'
+    def ee():
+        ora = 'de'
+        print ora, # prints first
+    ee()
+    print ora,     # second
+er()
+print ora          # last
+```
+`de cepti cool` - all fine.
+
+```
+ora = 'cool'
+def er():
+    ora = 'cepti'
+    def ee():
+        global ora
+        ora = 'de'
+        print ora, # prints first
+    ee()
+    print ora,     # second
+er()
+print ora          # last
+```
+`de cepti de`.
+
+The wart of Python 2 is that there is no way you can modify the `cepti` part in the middle scope (without hacks). In Python 3 there is a `nonlocal` keyword for that.
+
+But that's not important, because it is rarely used. It is important to completely understand the scoping rules to get the problem with `execfile()` right.
+
+### confusing exec vs eval ###
+
+Python has both eval() and exec() functions. Documentation on both specifies effects of combining different arguments without a clear purpose or a big picture, making the doc useless and confusing. Usually eval is used to execute code in a string or variable in-place, like if you've pasted it at this location. So it was easy to assume that exec should be different. I assumed that it was creating a isolated namespace and executed the code there. But by default, it is not true and it just executes code in-place.
+
+### cryptic execfile() behavior in Python 2 ###
+
+`execfile()` is useful for custom scripting in Python. You set imports and environment and execute script there. This is how SCons and similar tools work. In comparison to `import` `execfile()` doesn't create new module.
+
+demo.py
+```
+ora = 'cool'
+def er():
+    print ora
+er()
+```
+
+demorun.py
+```
+execfile('demo.py')
+```
+cool
+
+Changing demorun.py
+```
+def run():
+  execfile('demo.py')
+run()
+```
+```
+Traceback (most recent call last):
+  File "demorun.py", line 3, in <module>
+    run()
+  File "demorun.py", line 2, in run
+    execfile('demo.py')
+  File "demo.py", line 4, in <module>
+    er()
+  File "demo.py", line 3, in er
+    print ora
+NameError: global name 'ora' is not defined
+```
+Weird, eh?
+
+Changing demorun.py again
+```
+ora = 'cepticool'
+def run():
+  execfile('demo.py')
+run()
+```
+cepticool
+
+I was totally confused when I first encountered this behavior. It was not as clear as in this example. The problem is that you expect function behavior to be **position independent** and with `execfile()` it is not true. It is indirectly explained in [documentation](http://docs.python.org/2/library/functions.html#execfile) on its arguments. In addition to `filename`, `execfile()` accepts `globals` and `locals` arguments.  `If both dictionaries are omitted, the expression is executed in the environment where execfile is called.`
+
+There are more confusing references to globals/locals in docs, but the point is that `execfile()` basically inserts Python code in the place where it is called from. Therefore if you execute the `demo.py` inside of the function in demorun.py, it will inherit globals and locals of the function but will lose their own.
+
+Documentation just needs to say that it `execfile` pastes lines of code from file at the place of invocation. If you need to isolate execution, it is done by passing globals and locals arguments. But here is another problem `If two separate objects are passed as globals and locals, the code will be executed as if it were embedded in a class definition`. I don't know what is the effect if embed Python module in a class definition. Anybody? The docs probably say that you need to be smart to use it.
+
+There is another tip that can help with my particular use case. `Remember that at module level, globals and locals are the same dictionary.` I feel like a real Unix hacker now - that probably relates to the fact that executed file is a module and when we execute it, the code inside is executed on a module level. Seems obvious, but didn't work for me. So, the solution to fix execfile() behavior to be position independent is to pass it an empty dictionary.
+
+**recommendation**: simplify `execfile` description.
+
+## Standard library glitches ##
+
+### os.path.split has platform dependent behavior ###
+[os.path.split](http://docs.python.org/2/library/os.path.html#os.path.split) non-crossplatform behavior is not documented ([bug #16413](http://bugs.python.org/issue16413)).
+
+`os.path.split('c:foo')` results:
+
+  * Windows: `('c:', 'foo')`
+  * Linux:   `('', 'c:foo')`
+
+But `os.path.split('foo:bar')` on Windows gives `('', 'foo:bar')`.
+
+
+Summary: It would be nice to get 'import path' module with predictable cross-platform functions and notes about platform differences.
+
+### os.path.join counter-intuitive behavior ###
+```
+>>> os.path.join('/static', '/styles/largestyles.css')
+'/styles/largestyles.css'
+```
+This is counter-intuitive, because `/static + /static/largestyles.css` does everything right.
+
+Summary: wanted 'import path' module with behavior that is expected from join operation.
+
+### re.sub discrepancy between matching and substitution groups ###
+
+`\0` doesn't work in Python as a whole matched regexp in substitution string for `re.sub` and friends, but `.group(0)` contains the whole match as expected. http://bugs.python.org/issue17426 This inconsistency is unlikely to be fixed thanks to backward compatibility concerns only and therefore is a wart.
+
+### json leaves trailing whitespaces while indenting ###
+
+```
+import json
+with open("step0001", "w") as stepfile:
+    dataframe = dict([
+      ("line", 1),
+      ("stack", []),
+      ("result", "result")
+    ])
+    json.dump(dataframe, stepfile, indent=2)
+```
+
+Trailing spaces are ugly and HG and Git diffs complain about them. This is a wart, because it is not going to be fixed.
+
+## Standard tools warts ##
+### reStructuredText ###
+
+1. No way to insert empty lines between items in a bullet list
+```
+- item 1
+
+- item 2
+```
+is rendered as
+  * item 1
+  * item 2
+and the following is impossible at all
+  * item 1
+
+  * item 2
+
+2. In generated HTML, the structure of parent container depends on its children. For example, load the following into http://rst.ninjs.org to see the extra spacing between list lines:
+
+```
+first list
+
+- item 1
+- item 2
+- item 3
+
+second list
+
+- item 1
+- item 2::
+
+   example code section
+    
+- item 3
+- item 4
+```
+
+You can not reliably style HTML produced with reST, and it is considered to be [behavior http://sourceforge.net/p/docutils/bugs/178/](expected.md).
+
+# Packaging #
+## Subpackage management it a disaster ##
+
+Suppose I have a plugin for Spyder IDE. Suppose I want all plugins to be isolated in package `spyder.plugins`. Now how can I distribute `spyder.plugins.myplug` independently of Spyder IDE, so that it will land into appropriate folder with no additional hacks?
+
+I need:
+
+  1. install files from multiple packages into single directory
+  1. no file overwrites from different package on unpack (not by default at least)
+  1. full control over which packages contributes files to certain directory
+
+Basically, I need package control on **generic file level** - not on the **directory level + hacks**. TBD: describe current situation
+
+
+# Links #
+
+Links to other critique that can be useful for Python refactoring:
+  * http://pydanny.blogspot.com/2011/11/redux-python-things-i-dont-like.html
+  * http://inventwithpython.com/blog/2012/07/09/16-common-python-runtime-errors/
+  * http://packages.python.org/kitchen/unicode-frustrations.html
+  * http://zedshaw.com/essays/curing_pythons_neglect.html
+  * http://programming.oreilly.com/2013/10/dead-batteries-included.html
+  * http://jacobian.org/writing/hate-python/
+
+  * https://wiki.theory.org/YourLanguageSucks#Python_sucks_because:
+
+Guidelines and workarounds (could be fixed):
+  * http://doc.bazaar.canonical.com/developers/code-style.html#hasattr-and-getattr
+
+
+
+Constructive approach to wart invisibility problem from JavaScript guys:
+  * http://bonsaiden.github.com/JavaScript-Garden/
+
+
+Prooflinks:
+  1. https://bitbucket.org/techtonik/hexdump/pull-request/1/since-the-input-file-is-a-specific/diff

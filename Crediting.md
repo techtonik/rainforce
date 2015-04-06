@@ -1,0 +1,6 @@
+Subversion's Contribulyzer - http://www.red-bean.com/svnproject/contribulyzer/
+
+Twisted Hiscore - http://twistedmatrix.com/highscores/
+Chromium Hiscore - http://chromium-status.appspot.com/cq/top
+
+Also `hg churn`

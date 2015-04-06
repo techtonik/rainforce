@@ -1,0 +1,64 @@
+# Introduction #
+
+Traditional operating systems were hardware-oriented. The concepts listed here should be considered by operating systems for humans.
+
+# Details #
+
+To exist, you need a space to see and to express. If you don't create, you don't exist. The complexity of computer OS puts the freedom of expression away from people. This should be given back.
+
+Operating System is Code, and Code is Law. This is the system of code that allows you to do some operations. `Allows` means that the thing that you want to do is simple to do, and simple to learn how to do it. That also means that it is fun, so you won't `bounce away` while trying to do anything. `OS for humans` means that the interface adapts itself to human knowledge level rather than placing a requirements on humans to raise their knowledge about itself. Levels of power should be accessible.
+
+Highly Abstract. This means there are no complicated protocols, detailed specifications and things that are boring in equivalent. Every part of system design should be interesting to play with and understand. Only when a simple alternative exists, a more complicated things are possible. The ultimate level of abstraction is description of human needs. These are concepts that may not have a possible implementation due to various conflicts. Every component is a feature. Every feature is optional. Every set of non-optional features is called "a core".
+
+Cross-platform. CHAOS is not an operating system in classical sense. It is a set of concepts (user needs) and their implementations (features) that work (parasite) on top of any operating system, platform, hardware, software etc. as long as they provide humans to do operations the humans want.
+
+# Features #
+
+  * `AudioSocket` - human need to send digital sound over the distance
+  * `Canvas2D` - human need to simply draw (visualize) things digitally
+  * `Console` - similar to quake console, windows console or linux terminal, this is a simple interface for playing with keyboard and characters
+
+# No specs #
+
+These are wishes or rules. Because CHAOS is highly abstract, it may be impossible to define all features and settle the behavior in stone.
+
+## Users ##
+
+For multiuser system there should be 'user' command in console to get list of all users, add new and add user to group:
+```
+usage: user list [options]      - list all human users accounts
+       user add <name>          - add hew user account to system
+       user add <name> <group>  - add user to group
+```
+
+Update 2013-03: Linux `users` command shows users who are currently online. It is worthy to add `users --all` option to see all users who are present on this system. Extending the idea - the CHAOS system may be the point of entry for humans into the communication cloud, so the system 'users' may be replaced by better analogy, such as system 'actor, account, robot, entity, ghost, ...'. Ghost is probably the best idea as you never know if there is a real man behind the terminal executing the program.
+<a href='Hidden comment: 
+TODO: move to detailed note
+'></a>
+
+## Console Tools ##
+
+In a system for humans every command has a -h help option, -v provides verbose output and --version gives out the version info.
+
+## Console / Terminal ##
+Console has input channel that receives keyboard scancodes, transformed to `universal scancodes`, applications can chain filter them, see who chain filtered, transform these codes to chars, and optionally feed these chars to output channel. As an application developer I want all my keyboard keypresses to be available for console apps in fast and responsive manner. Text interface should be the fastest ever.
+
+## Applications ##
+
+As an application developer I know better what dependencies my program needs. Application is the root of package dependency tree, and nodes in this tree should not be shared between applications. CHAOS is a forest of independent trees.
+
+And still I want to receive security updates. For this purpose CHAOS should register the application tree and check if it contains dependency versions that are known to have security updates. It can also execute an update command on user's behalf.
+
+## User Task Care ##
+
+CHAOS should provide restore, recovery and resume procedure for user activities, so when a system is rebooted, user tasks survive and can continue where they were left off. Truly chaotic apps always support this, but CHAOS should provide an easy way to make a task chaotic and test it without requiring any admin kung fu. No autoresumed task should result in system death cycle, and user may have an ability to choose what tasks to resume.
+
+## Action Queue / Chain ##
+
+Advanced actions require many steps. While it is possible to hardcode them in scripts, sometimes you need flexibility. To divert action plan at every step, to control exceptional situations and just run this plan in manual mode, every scripts can be converted into queue of actions. The more upfront analysis - the better.
+
+# Development Process #
+
+CHAOS development is all about decreasing entropy. Because the starting point is that everything is in chaos.
+
+There is no reinventing the wheel. CHAOS is distributed through a virus, which infects existing systems. CHAOS distributes by itself. =)

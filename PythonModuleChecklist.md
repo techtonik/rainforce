@@ -1,0 +1,27 @@
+### Release ###
+
+  * [ ] Update version
+    * `module.py`
+    * `setup.py`
+    * `doc/*`
+  * [ ] Update ChangeLog
+    * `CHANGELOG`
+    * `README`
+  * [ ] Update Documentation
+    * `*.py` docstrings
+    * `doc/*`
+    * Wiki pages
+  * [ ] Upload to PyPI
+```
+python setup.py sdist upload
+```
+
+### Level Up ###
+
+  * [ ] Runnable
+    * python -m module
+  * [ ] Python 2/3 compatible
+    * python2 -m module
+    * python3 -m module
+
+

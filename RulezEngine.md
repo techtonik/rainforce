@@ -1,0 +1,51 @@
+People forget things - that's ok. Rule engine is not a reminder app. It is automation app to make automatic probes/checks and do something if this check is successful. Do something means send a signal. Not necessary a signal that something is wrong. Just a signal that rule is meant to produce. A signal you can react to. Or a signal that you can handle automatically.
+
+Rules are useful for things that are infrequently used - or for tiny bits of knowledge that flow by unnoticed. You want to run a set of rules once in a while and make sure they won't crash. Rulez Engine is a game engine - it should not give a bad experience. That is what "rulez!" means.
+
+Some user stories.
+
+## hardware/software ##
+### story one: 4Gb+ memory rulez! ###
+
+After some years of messing with my Linux I decided to reinstall it from scratch. I've installed 32-bit system on 64-bit CPU to save some memory, because 64-bit applications eat more.
+
+I forgot. I forgot to install PAE kernel. Without it my Linux could see only 2.9Gb out of 4Gb and I've noticed that only when asked about memory usage on my system by people from Native Client team.
+
+Story: I want execute rulez so that probe my config and tell me about the problem. In particular "Your system uses only 2.9Gb out of 4Gb available." "That's because your system is 32-bit Linux." "For 32-bit Linux you need to install PAE version of kernel to fix that.".
+
+Optional: Rulez may propose to give user a feedback in the form "Am I right?" so that outdated rules can be fixed. New facts are added or configuration data collector is expanded.
+
+Design: Rules need data. Data about the OS and memory. This data is hierarchical and placed into intuitive namespaces. Namespace can change, the data can move, names can change. The rule should not break - it may complain about missing stuff so that people can fix, but not break. It's role is to give a signal that result is innacurate, because information is incomplete. It's up to user to provide information, but rulez may give an ability to enter the value manually or fix the data source/point to a new namespace/change data collection logic - expand with new platform.
+
+Design: Platform specific rules should be marked as such, but not overload the syntax with details. It would be nice if details such as platform could be supplied externally or figured out from syntax so that you can answer the question "which rules required specific platform handling and which ones are already ported to my one?"
+
+
+### story two: WebGL/OpenGL compatibility check ###
+
+There are many versions of OpenGL standard. One flavour is WebGL. I want to know what OpenGL version my hardware supports natively.
+
+Story 1: I want rulez to execute all probes for a particular OpenGL version and tell me if they pass.
+Story 2: I want rulez to execute all probes for all OpenGL versions and tell me the support status for each
+
+Design: Rulez engine role is to make checks and report signals. "Give me a list of supported version" can hardly be called a signal. It is a message with a structure. A signal is something that is true or false. If signals will be complicated - the whole system will quickly become complicated and unmanageable. At least I can't see it as a simple anymore. And "rulez!" often means simple and clear.
+
+### story three: configuration management ###
+
+The two stories above can be summarized. I want to automatically check for parts of my hardware configuration that may be important for me.
+
+Story (abstract): I wany to get max out of my system and I'd like it to be fast enough to not even notice, maximum energy saving, reliable and performant (in that order). So I want to check if my generic parameters in my configuration are set correctly.
+
+Story (concrete): I have SSD. Whay should I tune in my outdated OS to make it work ok. "I don't know, but here are a few checks".
+
+Design: This is basically a knowledge base and chained rules. "SSD is present" is a signal to make other checks for the main "optimal configuration" check. Chained means that all problems with loop detection pop up. That's why if rules are chained it should be programmatically clear that loop is there and it is stable (doesn't depend on time or interations number).
+
+### story four: application dependency checks ###
+
+Chef is a configuration management tool. SCons is a build management. Both share the same principle:
+
+Phase 1: Read files, process commands to build execution tree
+Phase 2: Execute the tree
+
+Somewhere in the middle of Phase 1 and 2 there are system checks. Checks that choose compiler (or package manager), In Chef check are tightly connected to logic they execute. Check if package is installed is made when a tree is executed, and the tree is a plain execution list. There is not much branching, actually - merely inclusion of rules and notifications to them, but there are no 1st class chained dependencies as in package management.
+
+In SCons dependency checks are made before or during tree construction phase. These find build tools, choose them, choose params and check dependencies. These are hardcoded in ptogram logic and generally not extendable without some kind of suclassing. With rulez hacking into rule execution chain should be intuitively easy and maintainable.

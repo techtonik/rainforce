@@ -1,0 +1,73 @@
+### Introduction ###
+
+Tools like Facter, Ohai and [friends](http://stackoverflow.com/questions/5149895/python-version-of-facter) are designed for collect information about nodes (computers, machines, hosts, network stations). Such info as operating system type, version, architecture, memory size, CPU/GPU abilities etc. The information they collect is programmatically accessible, but there is no guarantee that the structure is the same and JSON received from Ohai can be fed to program that worked with Facter.
+
+This is an attempt to define nested tree structure for describing nodes.
+
+### Details ###
+
+Version 1.1 of the speccy.
+
+#### Flags ####
+These are used for convenience in different 'if' checks. For example:
+```
+if info.os.windows:
+    pass
+```
+
+Accessing the flags that are not set should not raise exceptions.
+```
+os.windows
+os.linux
+os.osx
+```
+
+#### Key/Values ####
+```
+# OS identification - other values possible, but these
+# three are required to be returned correctly for 1.0
+os.type = ['windows'|'linux'|'osx']
+
+# don't confuse with CPU architecture
+os.architecture = ['32-bit'|'64-bit']
+
+# system drives, in no particular order, including USB
+# driveid could be normalized in subsequent versions
+drives = {...}
+drives['c:\\'|'/dev/sda'] = drive
+# single drive is described as
+drive.type = ['usb']
+
+```
+
+#### Serialization to JSON ####
+
+```
+{
+    "drives": {
+        "/dev/sdc": {
+            "type": "usb"
+        }
+    },
+    "os": {
+        "linux": true,
+        "osx": false,
+        "windows": false,
+
+        "type": "linux",
+        "architecture": "64-bit"
+    }
+}
+```
+
+### Tales ###
+01. I want to know if my OS is 64-bit <br>
+os.architecture == '64-bit'<br>
+<br>
+02. I want to get all USB drives in system <br>
+usb = [drives<a href='drive.md'>drive</a> for drive in drives if drive.type == 'usb']<br>
+<br>
+<h3>More info</h3>
+
+<ul><li><a href='http://www.linuxintro.org/wiki/Hwinfo'>http://www.linuxintro.org/wiki/Hwinfo</a>
+</li><li><a href='http://stackoverflow.com/questions/13814428/python-linux-dmidecode-how-to-obtain-hw-info-by-parsing'>http://stackoverflow.com/questions/13814428/python-linux-dmidecode-how-to-obtain-hw-info-by-parsing</a>
