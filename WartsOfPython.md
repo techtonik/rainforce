@@ -15,7 +15,7 @@
 > http://www.catb.org/jargon/html/W/wart.html
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-
+- .
 	- [Foreword](#)
 	- [About](#)
 	- [Why warts and why do they appear?](#)
@@ -227,6 +227,11 @@ You can't make a lazy import in Python for MYSYMBOL, because.. it requires two o
 2. import the real darkmagic.MYSYMBOL when package.MYSYMBOL is first accessed (making proxy for MYSYMBOL in `__init__.py`, but better without proxy, because it may disrupt inheritance etc.)
 
 `package.__getattr__` on module level will not help here, because it will be called during `from package import MYSYMBOL`, not when MYSYMBOL is really accessed, so (1) already fails. (2) is just impossible - for module imports in package it is real, but not for symbols.
+
+## can't get the name of the variable
+
+If you want to `inspect(obj)`, there is no way for your `inspect` to know
+that passed variable has the name `obj`.
 
 # Everything Else #
 
