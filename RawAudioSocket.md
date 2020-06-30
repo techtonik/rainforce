@@ -27,5 +27,7 @@ As the system should be as simple as possible, there is **no discovery or negoti
   1. https://developers.google.com/native-client/devguide/coding/audio
 
 ## Implementations ##
-> | [audiosocket.py](https://bitbucket.org/techtonik/audiosocket/src/tip/audiosocket.py) | Public Domain | Python | -- Windows only -- |
-|:-------------------------------------------------------------------------------------|:--------------|:-------|:-------------------|
+
+| URL | License | Language | Notes |
+|:-----------------------------------------------------------|:--------------|:-------|:-------------------|
+| [audiosocket.py](https://github.com/techtonik/audiosocket) | Public Domain | Python | Windows ready |
